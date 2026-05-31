@@ -8,6 +8,11 @@
 <link rel="apple-touch-icon" href="logo.png"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
+/* ═══════════════════════════════════════════════
+   HISAAB — Bold Editorial UI
+   Reference: Qorry Portfolio — black/white/lime
+   ═══════════════════════════════════════════════ */
+
 :root {
   --black:    #0a0a0a;
   --white:    #f5f5f0;
@@ -23,241 +28,1014 @@
   --green:    #00a844;
   --green-d:  #008836;
   --orange:   #d45a00;
+
   --sans: 'Space Grotesk', 'Noto Sans Devanagari', sans-serif;
   --mono: 'Space Mono', monospace;
+
   --sidebar: 260px;
   --r4: 4px; --r8: 8px; --r12: 12px; --r16: 16px;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { font-size: 16px; }
-body { font-family: var(--sans); background: var(--black); color: var(--black); min-height: 100vh; overflow-x: hidden; }
 
-/* LOADING */
-#loading { position: fixed; inset: 0; background: var(--black); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s; }
+body {
+  font-family: var(--sans);
+  background: var(--black);
+  color: var(--black);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── LOADING ──────────────────────────────────── */
+#loading {
+  position: fixed; inset: 0;
+  background: var(--black);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s;
+}
 #loading.out { opacity: 0; pointer-events: none; }
-.load-wordmark { font-family: var(--mono); font-size: clamp(48px, 12vw, 96px); font-weight: 700; color: var(--white); letter-spacing: -4px; line-height: 1; }
+
+.load-wordmark {
+  font-family: var(--mono);
+  font-size: clamp(48px, 12vw, 96px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -4px;
+  line-height: 1;
+}
 .load-wordmark span { color: var(--lime); }
-.load-sub { font-family: var(--sans); font-size: 13px; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; margin-top: 12px; }
-.load-bar { width: 200px; height: 2px; background: #222; margin-top: 32px; border-radius: 1px; overflow: hidden; }
-.load-bar-fill { height: 100%; width: 0%; background: var(--lime); border-radius: 1px; animation: loadFill 1.2s ease forwards; }
+.load-sub {
+  font-family: var(--sans);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.load-bar {
+  width: 200px; height: 2px;
+  background: #222;
+  margin-top: 32px;
+  border-radius: 1px;
+  overflow: hidden;
+}
+.load-bar-fill {
+  height: 100%; width: 0%;
+  background: var(--lime);
+  border-radius: 1px;
+  animation: loadFill 1.2s ease forwards;
+}
 @keyframes loadFill { to { width: 100%; } }
 
-/* DB STATUS */
-#db-status { position: fixed; top: 12px; right: 12px; z-index: 9998; font-family: var(--mono); font-size: 11px; font-weight: 700; padding: 6px 12px; border-radius: var(--r4); letter-spacing: 1px; transition: all 0.3s; }
-#db-status.connecting { background: #222; color: #666; }
-#db-status.connected { background: var(--green); color: #fff; }
-#db-status.error { background: var(--red); color: #fff; }
+/* ══════════════════════════════════════════════
+   LAYOUT SHELL
+   ══════════════════════════════════════════════ */
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
 
-.shell { display: flex; min-height: 100vh; }
+/* ── SIDEBAR ──────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar);
+  background: var(--black);
+  border-right: 1px solid #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 200;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  overflow-y: auto;
+}
 
-/* SIDEBAR */
-.sidebar { width: var(--sidebar); background: var(--black); border-right: 1px solid #1e1e1e; display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 200; transition: transform 0.3s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
-.sidebar-top { padding: 28px 24px 20px; border-bottom: 1px solid #1e1e1e; }
-.wordmark { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--white); letter-spacing: -1.5px; line-height: 1; }
+.sidebar-top {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.wordmark {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -1.5px;
+  line-height: 1;
+}
 .wordmark em { color: var(--lime); font-style: normal; }
-.wordmark-sub { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 6px; }
-.sidebar-date { margin-top: 16px; font-family: var(--mono); font-size: 11px; color: #444; letter-spacing: 1px; }
-.sidebar-nav { flex: 1; padding: 16px 12px; }
-.nav-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #333; padding: 0 12px; margin: 20px 0 8px; font-weight: 600; }
+
+.wordmark-sub {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.sidebar-date {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+/* SIDEBAR NAV */
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 12px;
+}
+
+.nav-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #333;
+  padding: 0 12px;
+  margin: 20px 0 8px;
+  font-weight: 600;
+}
 .nav-label:first-child { margin-top: 4px; }
-.nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: var(--r8); border: none; background: transparent; color: #666; font-family: var(--sans); font-size: 14px; font-weight: 500; width: 100%; text-align: left; cursor: pointer; transition: all 0.15s; position: relative; }
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: var(--r8);
+  border: none;
+  background: transparent;
+  color: #666;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
 .nav-item:hover { color: var(--white); background: #111; }
-.nav-item.active { color: var(--black); background: var(--lime); font-weight: 700; }
+.nav-item.active {
+  color: var(--black);
+  background: var(--lime);
+  font-weight: 700;
+}
 .nav-item.active .nav-badge { background: var(--black); color: var(--lime); }
+
 .nav-icon { font-size: 18px; width: 20px; text-align: center; flex-shrink: 0; }
-.nav-badge { margin-left: auto; background: #222; color: #888; font-family: var(--mono); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
-.sidebar-total { padding: 20px 24px; border-top: 1px solid #1e1e1e; }
-.st-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #444; margin-bottom: 6px; }
-.st-amount { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--red); letter-spacing: -1px; line-height: 1; }
+
+.nav-badge {
+  margin-left: auto;
+  background: #222;
+  color: #888;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+/* SIDEBAR TOTAL */
+.sidebar-total {
+  padding: 20px 24px;
+  border-top: 1px solid #1e1e1e;
+}
+.st-label {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 6px;
+}
+.st-amount {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -1px;
+  line-height: 1;
+}
 .st-amount.zero { color: var(--green); font-size: 22px; }
-.sidebar-lang { padding: 16px 24px; border-top: 1px solid #1e1e1e; }
-.lang-toggle { display: flex; background: #111; border: 1px solid #222; border-radius: var(--r8); overflow: hidden; width: 100%; }
-.lang-opt { flex: 1; padding: 8px; border: none; background: transparent; color: #555; font-family: var(--sans); font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+
+/* SIDEBAR LANG */
+.sidebar-lang {
+  padding: 16px 24px;
+  border-top: 1px solid #1e1e1e;
+}
+.lang-toggle {
+  display: flex;
+  background: #111;
+  border: 1px solid #222;
+  border-radius: var(--r8);
+  overflow: hidden;
+  width: 100%;
+}
+.lang-opt {
+  flex: 1; padding: 8px;
+  border: none; background: transparent;
+  color: #555;
+  font-family: var(--sans);
+  font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s;
+}
 .lang-opt.active { background: var(--lime); color: var(--black); }
 
-/* MAIN */
-.main { flex: 1; margin-left: var(--sidebar); background: var(--off); min-height: 100vh; display: flex; flex-direction: column; }
-.topbar { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+/* ── MAIN AREA ────────────────────────────────── */
+.main {
+  flex: 1;
+  margin-left: var(--sidebar);
+  background: var(--off);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOP BAR ──────────────────────────────────── */
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0; z-index: 100;
+}
+
 .topbar-left { display: flex; align-items: center; gap: 16px; }
-.ham { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 6px; cursor: pointer; }
+
+.ham {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none; border: none;
+  padding: 6px; cursor: pointer;
+}
 .ham span { display: block; width: 22px; height: 2px; background: var(--black); border-radius: 1px; transition: all 0.2s; }
-.page-heading { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--black); letter-spacing: -0.5px; }
+
+.page-heading {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -0.5px;
+}
+
 .topbar-actions { display: flex; align-items: center; gap: 10px; }
-.btn-add-main { display: flex; align-items: center; gap: 8px; background: var(--black); color: var(--lime); border: none; border-radius: var(--r8); padding: 10px 20px; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: all 0.15s; }
+
+.btn-add-main {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--black);
+  color: var(--lime);
+  border: none;
+  border-radius: var(--r8);
+  padding: 10px 20px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
 .btn-add-main:hover { background: #222; }
 
-/* MOBILE NAV */
-.mobile-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--black); border-top: 1px solid #1e1e1e; height: 60px; z-index: 200; }
+/* ── MOBILE BOTTOM NAV ────────────────────────── */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--black);
+  border-top: 1px solid #1e1e1e;
+  height: 60px;
+  z-index: 200;
+}
+
 .mnav-inner { display: flex; height: 100%; }
-.mnav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: none; background: none; color: #444; font-family: var(--sans); font-size: 10px; font-weight: 600; cursor: pointer; transition: color 0.15s; padding: 6px 4px; }
+.mnav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px; border: none; background: none;
+  color: #444; font-family: var(--sans);
+  font-size: 10px; font-weight: 600;
+  cursor: pointer; transition: color 0.15s;
+  padding: 6px 4px;
+}
 .mnav-item.active { color: var(--lime); }
 .mnav-item .mi { font-size: 20px; line-height: 1; }
-.fab-mobile { background: var(--lime); color: var(--black) !important; border-radius: 50%; width: 48px; height: 48px; margin: 0 auto; font-size: 24px !important; align-self: center; }
-.fab-mobile .mi { font-size: 24px !important; }
 
-/* PAGES */
+/* ══════════════════════════════════════════════
+   PAGES
+   ══════════════════════════════════════════════ */
 .content { flex: 1; padding: 32px; }
 .page { display: none; animation: fadeUp 0.22s ease; }
 .page.active { display: block; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
 
-/* DASHBOARD */
-.dash-hero { background: var(--black); border-radius: var(--r16); padding: 40px 40px 32px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; overflow: hidden; position: relative; }
-.dash-hero::before { content: 'HISAAB'; position: absolute; font-family: var(--mono); font-size: 140px; font-weight: 700; color: #111; right: -20px; top: -20px; line-height: 1; letter-spacing: -6px; pointer-events: none; user-select: none; }
+/* ══════════════════════════════════════════════
+   DASHBOARD
+   ══════════════════════════════════════════════ */
+
+/* HERO — bold editorial block */
+.dash-hero {
+  background: var(--black);
+  border-radius: var(--r16);
+  padding: 40px 40px 32px;
+  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: end;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Big decorative text */
+.dash-hero::before {
+  content: 'HISAAB';
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 140px;
+  font-weight: 700;
+  color: #111;
+  right: -20px; top: -20px;
+  line-height: 1;
+  letter-spacing: -6px;
+  pointer-events: none;
+  user-select: none;
+}
+
 .hero-left { position: relative; z-index: 1; }
-.hero-tag { display: inline-block; background: var(--lime); color: var(--black); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 12px; border-radius: var(--r4); margin-bottom: 20px; }
-.hero-label { font-size: 13px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
-.hero-amount { font-family: var(--mono); font-size: clamp(48px, 8vw, 80px); font-weight: 700; color: var(--white); letter-spacing: -3px; line-height: 1; }
+
+.hero-tag {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--black);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: var(--r4);
+  margin-bottom: 20px;
+}
+
+.hero-label {
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.hero-amount {
+  font-family: var(--mono);
+  font-size: clamp(48px, 8vw, 80px);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -3px;
+  line-height: 1;
+}
 .hero-amount.zero { color: var(--lime); }
-.hero-meta { font-size: 13px; color: #555; margin-top: 10px; font-weight: 500; }
-.hero-right { position: relative; z-index: 1; text-align: right; }
+
+.hero-meta {
+  font-size: 13px;
+  color: #555;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.hero-right {
+  position: relative; z-index: 1;
+  text-align: right;
+}
+
 .hero-stat-block { margin-bottom: 20px; }
-.hstat-num { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--white); letter-spacing: -1px; line-height: 1; }
-.hstat-label { font-size: 11px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 3px; font-weight: 600; }
-.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-.stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r12); padding: 20px; transition: border-color 0.15s; }
+.hstat-num {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.hstat-label {
+  font-size: 11px;
+  color: #555;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+/* STAT CARDS ROW */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r12);
+  padding: 20px;
+  transition: border-color 0.15s;
+}
 .stat-card:hover { border-color: var(--black); }
-.sc-num { font-family: var(--mono); font-size: 36px; font-weight: 700; color: var(--black); letter-spacing: -2px; line-height: 1; }
-.sc-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 6px; }
+
+.sc-num {
+  font-family: var(--mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -2px;
+  line-height: 1;
+}
+.sc-label {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.sc-label.hi { font-family: var(--sans); letter-spacing: 0; }
 .stat-card.red .sc-num { color: var(--red); }
 .stat-card.green .sc-num { color: var(--green); }
-.sec-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-.sec-title { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--black); letter-spacing: 2px; text-transform: uppercase; }
-.sec-link { font-size: 12px; font-weight: 700; color: var(--muted); background: none; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: color 0.15s; }
+
+/* SECTION HEADER */
+.sec-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 16px;
+}
+.sec-title {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.sec-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  background: none; border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.15s;
+}
 .sec-link:hover { color: var(--black); }
+
+/* ENTRY ROW */
 .entry-list { display: flex; flex-direction: column; gap: 2px; }
-.entry-row { background: var(--white); border: 1px solid var(--border); border-radius: var(--r8); padding: 14px 18px; display: flex; align-items: center; gap: 14px; transition: border-color 0.15s; }
+
+.entry-row {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: border-color 0.15s;
+}
 .entry-row:hover { border-color: var(--black); }
+.entry-row + .entry-row { margin-top: 2px; }
+
+/* Left accent line */
 .entry-row.unpaid { border-left: 3px solid var(--red); }
-.entry-row.paid { border-left: 3px solid var(--green); }
-.av { width: 42px; height: 42px; border-radius: 50%; background: var(--off); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--black); flex-shrink: 0; text-transform: uppercase; }
+.entry-row.paid   { border-left: 3px solid var(--green); }
+
+.av {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--off);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 13px; font-weight: 700;
+  color: var(--black); flex-shrink: 0;
+  text-transform: uppercase;
+}
+
 .entry-info { flex: 1; min-width: 0; }
-.entry-name { font-size: 15px; font-weight: 700; color: var(--black); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.entry-name {
+  font-size: 15px; font-weight: 700;
+  color: var(--black);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .entry-meta { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
 .entry-right { text-align: right; flex-shrink: 0; }
-.entry-amt { font-family: var(--mono); font-size: 18px; font-weight: 700; color: var(--red); letter-spacing: -0.5px; }
+.entry-amt {
+  font-family: var(--mono);
+  font-size: 18px; font-weight: 700;
+  color: var(--red); letter-spacing: -0.5px;
+}
 .entry-amt.paid { color: var(--green); }
-.drink-pill { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 8px; border-radius: var(--r4); margin-top: 4px; }
-.pill-chai { background: #fff3e0; color: #c06000; }
-.pill-coffee { background: #1a0a00; color: #c09060; }
+
+.drink-pill {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: var(--r4);
+  margin-top: 4px;
+}
+.pill-chai    { background: #fff3e0; color: #c06000; }
+.pill-coffee  { background: #1a0a00; color: #c09060; }
 .pill-special { background: #f0e8ff; color: #6020a0; }
 
-/* PEOPLE */
-.page-controls { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
-.search-box { flex: 1; min-width: 200px; position: relative; }
-.search-box .si { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--muted); pointer-events: none; }
-.search-box input { width: 100%; padding: 11px 14px 11px 38px; border: 1px solid var(--border); border-radius: var(--r8); font-family: var(--sans); font-size: 14px; color: var(--black); background: var(--white); outline: none; transition: border-color 0.15s; }
+/* ══════════════════════════════════════════════
+   PEOPLE PAGE
+   ══════════════════════════════════════════════ */
+.page-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1; min-width: 200px;
+  position: relative;
+}
+.search-box .si {
+  position: absolute; left: 12px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px; color: var(--muted);
+  pointer-events: none;
+}
+.search-box input {
+  width: 100%;
+  padding: 11px 14px 11px 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--black);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
 .search-box input:focus { border-color: var(--black); }
 .search-box input::placeholder { color: var(--muted); }
+
 .chips { display: flex; gap: 6px; }
-.chip { padding: 8px 16px; border-radius: var(--r4); border: 1px solid var(--border); background: var(--white); font-family: var(--sans); font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.chip {
+  padding: 8px 16px;
+  border-radius: var(--r4);
+  border: 1px solid var(--border);
+  background: var(--white);
+  font-family: var(--sans);
+  font-size: 12px; font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 1px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
 .chip:hover { border-color: var(--black); color: var(--black); }
 .chip.active { background: var(--black); color: var(--lime); border-color: var(--black); }
+
+/* PERSON CARD */
 .person-grid { display: flex; flex-direction: column; gap: 2px; }
-.person-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r12); overflow: hidden; transition: border-color 0.15s; }
+
+.person-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r12);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
 .person-card:hover { border-color: var(--black); }
-.person-card-top { padding: 18px 20px; display: flex; align-items: center; gap: 14px; }
-.person-av { width: 48px; height: 48px; border-radius: 50%; background: var(--off); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--black); flex-shrink: 0; text-transform: uppercase; }
+
+.person-card-top {
+  padding: 18px 20px;
+  display: flex; align-items: center; gap: 14px;
+}
+
+.person-av {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--off);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono);
+  font-size: 16px; font-weight: 700;
+  color: var(--black); flex-shrink: 0;
+  text-transform: uppercase;
+}
+
 .person-info { flex: 1; min-width: 0; }
-.person-name { font-size: 17px; font-weight: 700; color: var(--black); line-height: 1.1; }
+.person-name {
+  font-size: 17px; font-weight: 700;
+  color: var(--black); line-height: 1.1;
+}
 .person-company { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
 .person-due-col { text-align: right; flex-shrink: 0; }
-.person-due { font-family: var(--mono); font-size: 24px; font-weight: 700; color: var(--red); letter-spacing: -1px; line-height: 1; }
+.person-due {
+  font-family: var(--mono);
+  font-size: 24px; font-weight: 700;
+  color: var(--red); letter-spacing: -1px; line-height: 1;
+}
 .person-due.clear { color: var(--green); font-size: 16px; font-weight: 600; letter-spacing: 0; }
 .person-cups { font-size: 12px; color: var(--muted); margin-top: 3px; }
-.person-card-footer { padding: 10px 20px; background: var(--off); border-top: 1px solid var(--border); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.person-history { display: none; border-top: 1px solid var(--border); }
+
+.person-card-footer {
+  padding: 10px 20px;
+  background: var(--off);
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+}
+
+/* History */
+.person-history {
+  display: none;
+  border-top: 1px solid var(--border);
+}
 .person-history.open { display: block; }
-.hist-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 20px; border-bottom: 1px solid var(--off); font-size: 13px; }
+
+.hist-row {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 11px 20px;
+  border-bottom: 1px solid var(--off);
+  font-size: 13px;
+}
 .hist-row:last-child { border-bottom: none; }
+.hist-date { color: var(--muted); font-size: 11px; font-family: var(--mono); }
 .hist-drink { font-size: 12px; color: var(--muted); margin-top: 1px; }
-.hist-price { font-family: var(--mono); font-size: 16px; font-weight: 700; }
+.hist-price {
+  font-family: var(--mono);
+  font-size: 16px; font-weight: 700;
+}
 .hist-price.owed { color: var(--red); }
 .hist-price.paid { color: var(--green); }
 
-/* COMPANIES */
-.companies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-.company-card { background: var(--black); border-radius: var(--r16); padding: 28px; position: relative; overflow: hidden; transition: transform 0.15s; }
+/* ══════════════════════════════════════════════
+   COMPANIES PAGE
+   ══════════════════════════════════════════════ */
+.companies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.company-card {
+  background: var(--black);
+  border-radius: var(--r16);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s;
+}
 .company-card:hover { transform: translateY(-2px); }
-.company-card::before { content: attr(data-initial); position: absolute; right: -10px; bottom: -20px; font-family: var(--mono); font-size: 120px; font-weight: 700; color: #111; line-height: 1; pointer-events: none; user-select: none; }
-.co-tag { display: inline-block; background: var(--lime); color: var(--black); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 3px 10px; border-radius: var(--r4); margin-bottom: 14px; position: relative; z-index: 1; }
-.co-name { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; line-height: 1.2; position: relative; z-index: 1; }
-.co-floor { font-size: 12px; color: #555; margin-bottom: 20px; position: relative; z-index: 1; }
-.co-due { font-family: var(--mono); font-size: 42px; font-weight: 700; color: var(--lime); letter-spacing: -2px; line-height: 1; position: relative; z-index: 1; }
+
+/* Big letter watermark */
+.company-card::before {
+  content: attr(data-initial);
+  position: absolute;
+  right: -10px; bottom: -20px;
+  font-family: var(--mono);
+  font-size: 120px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.co-tag {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--black);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: var(--r4);
+  margin-bottom: 14px;
+  position: relative; z-index: 1;
+}
+.co-name {
+  font-size: 22px; font-weight: 700;
+  color: var(--white); margin-bottom: 4px;
+  line-height: 1.2;
+  position: relative; z-index: 1;
+}
+.co-floor {
+  font-size: 12px; color: #555;
+  margin-bottom: 20px;
+  position: relative; z-index: 1;
+}
+
+.co-due {
+  font-family: var(--mono);
+  font-size: 42px; font-weight: 700;
+  color: var(--lime); letter-spacing: -2px; line-height: 1;
+  position: relative; z-index: 1;
+}
 .co-due.zero { color: var(--green); font-size: 28px; letter-spacing: 0; }
-.co-due-lbl { font-size: 11px; color: #555; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; margin-bottom: 18px; position: relative; z-index: 1; }
-.co-stats { display: grid; grid-template-columns: repeat(3,1fr); background: #111; border-radius: var(--r8); overflow: hidden; margin-bottom: 16px; position: relative; z-index: 1; }
+.co-due-lbl {
+  font-size: 11px; color: #555;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-top: 4px; margin-bottom: 18px;
+  position: relative; z-index: 1;
+}
+
+.co-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  background: #111;
+  border-radius: var(--r8);
+  overflow: hidden;
+  margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
 .cst { padding: 10px 6px; text-align: center; border-right: 1px solid #1e1e1e; }
 .cst:last-child { border-right: none; }
-.cst-v { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--white); line-height: 1; }
+.cst-v {
+  font-family: var(--mono);
+  font-size: 20px; font-weight: 700;
+  color: var(--white); line-height: 1;
+}
 .cst-l { font-size: 9px; color: #444; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
-.co-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: relative; z-index: 1; }
-.co-staff-list { display: none; background: #0d0d0d; border-radius: var(--r8); margin-top: 10px; position: relative; z-index: 1; }
+
+.co-actions {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  position: relative; z-index: 1;
+}
+
+.co-staff-list {
+  display: none;
+  background: #0d0d0d;
+  border-radius: var(--r8);
+  margin-top: 10px;
+  position: relative; z-index: 1;
+}
 .co-staff-list.open { display: block; }
-.staff-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid #161616; font-size: 13px; }
+.staff-row {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #161616;
+  font-size: 13px;
+}
 .staff-row:last-child { border-bottom: none; }
 .staff-name { color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 600; }
 .staff-owe { font-family: var(--mono); font-size: 14px; font-weight: 700; }
 .staff-owe.owed { color: var(--lime); }
 .staff-owe.clear { color: #333; font-size: 12px; }
 
-/* PRICES */
-.prices-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-.price-card { border: 1px solid var(--border); border-radius: var(--r16); overflow: hidden; background: var(--white); }
-.pc-head { padding: 24px 24px 18px; background: var(--black); position: relative; }
-.pc-head::after { content: ''; position: absolute; bottom: 0; left: 24px; width: 40px; height: 3px; background: var(--lime); }
-.pc-emoji { font-size: 32px; display: block; margin-bottom: 10px; }
-.pc-name { font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 2px; }
-.pc-name-hi { font-size: 13px; color: #555; margin-bottom: 12px; }
-.pc-current { font-family: var(--mono); font-size: 48px; font-weight: 700; color: var(--lime); letter-spacing: -2px; line-height: 1; }
-.pc-foot { padding: 14px 24px; background: var(--off); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.price-ctrl { display: flex; align-items: center; gap: 12px; }
-.pcb { width: 38px; height: 38px; border-radius: var(--r8); border: 1px solid var(--border); background: var(--white); color: var(--black); font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: var(--mono); transition: all 0.15s; }
-.pcb:active { background: var(--black); color: var(--lime); border-color: var(--black); }
-.pcv { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--black); min-width: 50px; text-align: center; }
+/* ══════════════════════════════════════════════
+   PRICES PAGE
+   ══════════════════════════════════════════════ */
+.prices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
 
-/* BUTTONS */
-.btn { display: inline-flex; align-items: center; gap: 6px; border: none; border-radius: var(--r8); padding: 9px 16px; font-family: var(--sans); font-size: 13px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; transition: all 0.15s; }
+.price-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r16);
+  overflow: hidden;
+  background: var(--white);
+}
+
+.pc-head {
+  padding: 24px 24px 18px;
+  background: var(--black);
+  position: relative;
+}
+.pc-head::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 24px;
+  width: 40px; height: 3px;
+  background: var(--lime);
+}
+
+.pc-emoji { font-size: 32px; display: block; margin-bottom: 10px; }
+.pc-name {
+  font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 2px;
+}
+.pc-name-hi { font-size: 13px; color: #555; margin-bottom: 12px; }
+.pc-current {
+  font-family: var(--mono);
+  font-size: 48px; font-weight: 700;
+  color: var(--lime); letter-spacing: -2px; line-height: 1;
+}
+
+.pc-foot {
+  padding: 14px 24px;
+  background: var(--off);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.price-ctrl { display: flex; align-items: center; gap: 12px; }
+.pcb {
+  width: 38px; height: 38px;
+  border-radius: var(--r8);
+  border: 1px solid var(--border);
+  background: var(--white);
+  color: var(--black);
+  font-size: 22px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-family: var(--mono);
+  transition: all 0.15s;
+}
+.pcb:active { background: var(--black); color: var(--lime); border-color: var(--black); }
+.pcv {
+  font-family: var(--mono);
+  font-size: 20px; font-weight: 700;
+  color: var(--black); min-width: 50px; text-align: center;
+}
+
+/* ══════════════════════════════════════════════
+   BUTTONS
+   ══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: none; border-radius: var(--r8);
+  padding: 9px 16px;
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
 .btn:active { transform: scale(0.97); }
 .btn-sm { padding: 7px 14px; font-size: 12px; }
+.btn-xs { padding: 5px 10px; font-size: 11px; }
+
 .btn-primary { background: var(--black); color: var(--lime); }
 .btn-primary:hover { background: #222; }
+
 .btn-lime { background: var(--lime); color: var(--black); }
 .btn-lime:hover { background: var(--lime-d); }
+
 .btn-success { background: var(--green); color: #fff; }
 .btn-success:hover { background: var(--green-d); }
+
 .btn-danger { background: var(--red); color: #fff; }
 .btn-danger:hover { background: var(--red-d); }
-.btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
 .btn-ghost:hover { border-color: var(--black); color: var(--black); }
-.btn-full { width: 100%; background: var(--black); color: var(--lime); border: none; border-radius: var(--r12); padding: 16px; font-family: var(--mono); font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: all 0.15s; }
+
+.btn-full {
+  width: 100%;
+  background: var(--black); color: var(--lime);
+  border: none; border-radius: var(--r12);
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 16px; font-weight: 700;
+  cursor: pointer; letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
 .btn-full:hover { background: #222; }
 .btn-full:active { transform: scale(0.99); }
 .btn-full.success { background: var(--green); color: #fff; }
-.co-toggle-btn { width: 100%; background: #111; border: none; color: #444; font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 9px 14px; border-radius: var(--r8); margin-top: 10px; cursor: pointer; transition: color 0.15s; position: relative; z-index: 1; }
+
+.co-toggle-btn {
+  width: 100%;
+  background: #111;
+  border: none; color: #444;
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 9px 14px;
+  border-radius: var(--r8);
+  margin-top: 10px; cursor: pointer;
+  transition: color 0.15s;
+  position: relative; z-index: 1;
+}
 .co-toggle-btn:hover { color: var(--white); }
-.btn-save-price { background: var(--lime); color: var(--black); border: none; border-radius: var(--r8); padding: 10px 20px; font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.5px; cursor: pointer; transition: background 0.15s; }
+
+.btn-save-price {
+  background: var(--lime);
+  color: var(--black); border: none;
+  border-radius: var(--r8);
+  padding: 10px 20px;
+  font-family: var(--mono);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.5px; cursor: pointer;
+  transition: background 0.15s;
+}
 .btn-save-price:hover { background: var(--lime-d); }
 
-/* MODALS */
-.modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 500; align-items: flex-end; justify-content: center; backdrop-filter: blur(4px); }
+/* ══════════════════════════════════════════════
+   MODALS
+   ══════════════════════════════════════════════ */
+.modal-bg {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 500;
+  align-items: flex-end; justify-content: center;
+  backdrop-filter: blur(4px);
+}
 .modal-bg.open { display: flex; }
-.modal { background: var(--white); border-radius: var(--r16) var(--r16) 0 0; padding: 8px 28px 40px; width: 100%; max-width: 520px; animation: mUp 0.26s cubic-bezier(.4,0,.2,1); max-height: 94vh; overflow-y: auto; }
+
+.modal {
+  background: var(--white);
+  border-radius: var(--r16) var(--r16) 0 0;
+  padding: 8px 28px 40px;
+  width: 100%; max-width: 520px;
+  animation: mUp 0.26s cubic-bezier(.4,0,.2,1);
+  max-height: 94vh; overflow-y: auto;
+}
 @keyframes mUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
-.modal-pill { width: 48px; height: 4px; background: var(--border); border-radius: 2px; margin: 16px auto 24px; }
-.modal-title { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--black); margin-bottom: 24px; letter-spacing: -0.5px; padding-bottom: 16px; border-bottom: 2px solid var(--black); }
+
+.modal-pill {
+  width: 48px; height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 16px auto 24px;
+}
+
+.modal-title {
+  font-family: var(--mono);
+  font-size: 22px; font-weight: 700;
+  color: var(--black); margin-bottom: 24px;
+  letter-spacing: -0.5px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--black);
+}
+
+/* FORM */
 .form-group { margin-bottom: 20px; }
-.form-lbl { display: block; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.form-lbl {
+  display: block;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 8px;
+}
 .form-lbl em { font-style: normal; font-weight: 500; color: #bbb; }
-.form-input, .form-select { width: 100%; padding: 13px 16px; border: 1px solid var(--border); border-radius: var(--r8); font-family: var(--sans); font-size: 16px; color: var(--black); background: var(--off); outline: none; transition: border-color 0.15s; -webkit-appearance: none; }
-.form-input:focus, .form-select:focus { border-color: var(--black); background: var(--white); }
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  font-family: var(--sans);
+  font-size: 16px; color: var(--black);
+  background: var(--off);
+  outline: none;
+  transition: border-color 0.15s;
+  -webkit-appearance: none;
+}
+.form-input:focus, .form-select:focus {
+  border-color: var(--black);
+  background: var(--white);
+}
 .form-input::placeholder { color: var(--muted); }
-.trow { display: flex; border: 1px solid var(--border); border-radius: var(--r8); overflow: hidden; }
-.topt { flex: 1; padding: 12px 8px; background: var(--off); border: none; font-family: var(--sans); font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; transition: all 0.15s; text-align: center; border-right: 1px solid var(--border); }
+
+/* Toggle row */
+.trow {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  overflow: hidden;
+}
+.topt {
+  flex: 1; padding: 12px 8px;
+  background: var(--off); border: none;
+  font-family: var(--sans);
+  font-size: 13px; font-weight: 700;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.15s; text-align: center;
+  border-right: 1px solid var(--border);
+}
 .topt:last-child { border-right: none; }
 .topt.sel { background: var(--black); color: var(--lime); }
-.drink-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
-.drink-card { border: 1px solid var(--border); border-radius: var(--r8); padding: 14px 8px; text-align: center; background: var(--off); cursor: pointer; transition: all 0.15s; }
+
+/* Drink grid */
+.drink-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+}
+.drink-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 14px 8px; text-align: center;
+  background: var(--off); cursor: pointer;
+  transition: all 0.15s;
+}
 .drink-card:hover { border-color: var(--black); }
 .drink-card.sel { background: var(--black); border-color: var(--black); }
 .drink-card.sel .dc-name { color: var(--lime); }
@@ -265,64 +1043,154 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
 .dc-em { font-size: 28px; line-height: 1; margin-bottom: 6px; }
 .dc-name { font-size: 13px; font-weight: 700; color: var(--black); }
 .dc-price { font-size: 11px; color: var(--muted); margin-top: 2px; font-family: var(--mono); }
+
+/* Qty */
 .qty-row { display: flex; align-items: center; gap: 16px; }
-.qty-btn { width: 46px; height: 46px; border-radius: var(--r8); border: 1px solid var(--border); background: var(--off); color: var(--black); font-family: var(--mono); font-size: 24px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; }
+.qty-btn {
+  width: 46px; height: 46px;
+  border-radius: var(--r8);
+  border: 1px solid var(--border);
+  background: var(--off); color: var(--black);
+  font-family: var(--mono); font-size: 24px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.15s;
+}
 .qty-btn:active { background: var(--black); color: var(--lime); border-color: var(--black); }
-.qty-val { font-family: var(--mono); font-size: 36px; font-weight: 700; color: var(--black); min-width: 44px; text-align: center; }
-.total-strip { background: var(--black); border-radius: var(--r8); padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.qty-val {
+  font-family: var(--mono);
+  font-size: 36px; font-weight: 700;
+  color: var(--black); min-width: 44px; text-align: center;
+}
+
+/* Total */
+.total-strip {
+  background: var(--black);
+  border-radius: var(--r8);
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
 .total-lbl { font-size: 12px; color: #666; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
 .total-amt { font-family: var(--mono); font-size: 28px; font-weight: 700; color: var(--lime); letter-spacing: -1px; }
-.btn-cancel { width: 100%; background: none; border: none; padding: 12px; font-family: var(--sans); font-size: 14px; font-weight: 600; color: var(--muted); margin-top: 8px; cursor: pointer; transition: color 0.15s; }
+
+.btn-cancel {
+  width: 100%; background: none; border: none;
+  padding: 12px; font-family: var(--sans);
+  font-size: 14px; font-weight: 600;
+  color: var(--muted); margin-top: 8px; cursor: pointer;
+  transition: color 0.15s;
+}
 .btn-cancel:hover { color: var(--black); }
+
+/* Confirm modal */
 .confirm-wrap { text-align: center; padding: 8px 0; }
 .confirm-icon { font-size: 44px; margin-bottom: 14px; }
-.confirm-msg { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--black); margin-bottom: 8px; letter-spacing: -0.5px; }
+.confirm-msg {
+  font-family: var(--mono);
+  font-size: 22px; font-weight: 700;
+  color: var(--black); margin-bottom: 8px; letter-spacing: -0.5px;
+}
 .confirm-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
-.confirm-amt { font-family: var(--mono); font-size: 40px; font-weight: 700; color: var(--red); letter-spacing: -2px; margin: 10px 0; display: block; }
+.confirm-amt {
+  font-family: var(--mono);
+  font-size: 40px; font-weight: 700;
+  color: var(--red); letter-spacing: -2px;
+  margin: 10px 0;
+  display: block;
+}
 .confirm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-/* TOAST */
-.toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--black); color: var(--lime); padding: 12px 24px; border-radius: var(--r8); font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: 0.5px; z-index: 9999; opacity: 0; pointer-events: none; white-space: nowrap; border: 1px solid #222; transition: all 0.3s cubic-bezier(.4,0,.2,1); max-width: calc(100vw - 40px); }
+/* ══════════════════════════════════════════════
+   TOAST
+   ══════════════════════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--black);
+  color: var(--lime);
+  padding: 12px 24px;
+  border-radius: var(--r8);
+  font-family: var(--mono);
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.5px;
+  z-index: 9999; opacity: 0; pointer-events: none;
+  white-space: nowrap;
+  border: 1px solid #222;
+  transition: all 0.3s cubic-bezier(.4,0,.2,1);
+  max-width: calc(100vw - 40px);
+}
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* EMPTY */
-.empty { text-align: center; padding: 60px 20px; border: 1px dashed var(--border); border-radius: var(--r12); background: var(--white); }
+/* ══════════════════════════════════════════════
+   EMPTY STATE
+   ══════════════════════════════════════════════ */
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--r12);
+  background: var(--white);
+}
 .empty-icon { font-size: 48px; margin-bottom: 16px; opacity: 0.5; }
-.empty-title { font-family: var(--mono); font-size: 20px; font-weight: 700; color: var(--black); margin-bottom: 8px; letter-spacing: -0.5px; }
+.empty-title {
+  font-family: var(--mono);
+  font-size: 20px; font-weight: 700;
+  color: var(--black); margin-bottom: 8px; letter-spacing: -0.5px;
+}
 .empty-sub { font-size: 14px; color: var(--muted); line-height: 1.7; }
 
-.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 150; backdrop-filter: blur(2px); }
+/* SIDEBAR OVERLAY */
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+}
 
-/* RESPONSIVE */
+/* ══════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════ */
 @media (max-width: 900px) {
   :root { --sidebar: 220px; }
   .stats-row { grid-template-columns: repeat(2,1fr); }
   .dash-hero::before { font-size: 80px; }
 }
+
 @media (max-width: 700px) {
   .sidebar { transform: translateX(-100%); }
   .sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.5); }
   .sidebar-overlay.open { display: block; }
+
   .main { margin-left: 0; }
   .ham { display: flex; }
   .btn-add-main { display: none; }
+
   .content { padding: 20px 16px 80px; }
   .topbar { padding: 0 16px; height: 56px; }
+
   .mobile-nav { display: block; }
+
   .dash-hero { padding: 24px; grid-template-columns: 1fr; }
   .dash-hero::before { font-size: 60px; opacity: 0.6; }
   .hero-right { display: none; }
   .hero-amount { font-size: 48px; }
+
   .stats-row { grid-template-columns: repeat(2,1fr); gap: 8px; }
   .sc-num { font-size: 28px; }
+
   .companies-grid { grid-template-columns: 1fr; }
   .prices-grid { grid-template-columns: 1fr; }
+
   .modal { padding: 8px 20px 36px; }
   .modal-title { font-size: 20px; }
+
   .page-controls { flex-direction: column; align-items: stretch; }
   .chips { flex-wrap: wrap; }
+
   .toast { bottom: 72px; }
 }
+
 @media (max-width: 400px) {
   .drink-grid { gap: 6px; }
   .dc-name { font-size: 11px; }
@@ -332,22 +1200,26 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
 </head>
 <body>
 
+<!-- LOADING -->
 <div id="loading">
   <div class="load-wordmark">HIS<span>A</span>AB</div>
   <div class="load-sub">हिसाब — Chai Tracker</div>
   <div class="load-bar"><div class="load-bar-fill"></div></div>
 </div>
 
-<div id="db-status" class="connecting">⏳ CONNECTING...</div>
 <div class="toast" id="toast"></div>
 
+<!-- ═══════ SHELL ═══════ -->
 <div class="shell">
+
+  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="wordmark">HIS<em>A</em>AB</div>
       <div class="wordmark-sub">हिसाब — Chai Tracker</div>
       <div class="sidebar-date" id="sidebar-date"></div>
     </div>
+
     <nav class="sidebar-nav">
       <div class="nav-label">Menu</div>
       <button class="nav-item active" data-page="dash" onclick="goPage('dash',this)">
@@ -370,10 +1242,12 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
         <span class="en">Prices</span><span class="hi" style="display:none">कीमत</span>
       </button>
     </nav>
+
     <div class="sidebar-total">
       <div class="st-label">TOTAL UDHARI</div>
       <div class="st-amount" id="sb-total">₹0</div>
     </div>
+
     <div class="sidebar-lang">
       <div class="lang-toggle">
         <button class="lang-opt active" id="lo-en" onclick="setLang('en')">EN</button>
@@ -384,7 +1258,10 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
 
   <div class="sidebar-overlay" id="sOverlay" onclick="closeSidebar()"></div>
 
+  <!-- MAIN -->
   <div class="main">
+
+    <!-- TOPBAR -->
     <header class="topbar">
       <div class="topbar-left">
         <button class="ham" id="hamBtn" onclick="toggleSidebar()">
@@ -393,14 +1270,18 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
         <div class="page-heading" id="page-heading">Dashboard</div>
       </div>
       <div class="topbar-actions">
-        <button class="btn-add-main" onclick="openAddEntry(null)">+ ADD CHAI</button>
+        <button class="btn-add-main" onclick="openAddEntry(null)">
+          + ADD CHAI
+        </button>
       </div>
     </header>
 
+    <!-- CONTENT -->
     <div class="content">
 
       <!-- DASHBOARD -->
       <section class="page active" id="page-dash">
+
         <div class="dash-hero">
           <div class="hero-left">
             <div class="hero-tag" id="h-tag">TODAY</div>
@@ -422,12 +1303,30 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
             </div>
           </div>
         </div>
+
         <div class="stats-row">
-          <div class="stat-card"><div class="sc-num" id="s-customers">0</div><div class="sc-label en">CUSTOMERS</div><div class="sc-label hi" style="display:none">ग्राहक</div></div>
-          <div class="stat-card red"><div class="sc-num" id="s-unpaid">0</div><div class="sc-label en">UNPAID</div><div class="sc-label hi" style="display:none">बकाया</div></div>
-          <div class="stat-card"><div class="sc-num" id="s-companies">0</div><div class="sc-label en">COMPANIES</div><div class="sc-label hi" style="display:none">कंपनियाँ</div></div>
-          <div class="stat-card green"><div class="sc-num" id="s-today-cups">0</div><div class="sc-label en">TODAY'S CUPS</div><div class="sc-label hi" style="display:none">आज के कप</div></div>
+          <div class="stat-card">
+            <div class="sc-num" id="s-customers">0</div>
+            <div class="sc-label en">CUSTOMERS</div>
+            <div class="sc-label hi" style="display:none">ग्राहक</div>
+          </div>
+          <div class="stat-card red">
+            <div class="sc-num" id="s-unpaid">0</div>
+            <div class="sc-label en">UNPAID</div>
+            <div class="sc-label hi" style="display:none">बकाया</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-num" id="s-companies">0</div>
+            <div class="sc-label en">COMPANIES</div>
+            <div class="sc-label hi" style="display:none">कंपनियाँ</div>
+          </div>
+          <div class="stat-card green">
+            <div class="sc-num" id="s-today-cups">0</div>
+            <div class="sc-label en">TODAY'S CUPS</div>
+            <div class="sc-label hi" style="display:none">आज के कप</div>
+          </div>
         </div>
+
         <div class="sec-hd">
           <div class="sec-title en">RECENT ENTRIES</div>
           <div class="sec-title hi" style="display:none">हाल की एंट्री</div>
@@ -436,6 +1335,7 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
           </button>
         </div>
         <div class="entry-list" id="dash-recent"></div>
+
       </section>
 
       <!-- PEOPLE -->
@@ -450,7 +1350,9 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
             <button class="chip" data-f="unpaid" onclick="setFilter('unpaid',this)"><span class="en">UNPAID</span><span class="hi" style="display:none">बकाया</span></button>
             <button class="chip" data-f="settled" onclick="setFilter('settled',this)"><span class="en">SETTLED</span><span class="hi" style="display:none">साफ</span></button>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openAddPerson()">+ <span class="en">ADD</span><span class="hi" style="display:none">जोड़ो</span></button>
+          <button class="btn btn-primary btn-sm" onclick="openAddPerson()">
+            + <span class="en">ADD</span><span class="hi" style="display:none">जोड़ो</span>
+          </button>
         </div>
         <div class="person-grid" id="people-list"></div>
       </section>
@@ -464,7 +1366,9 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
             <div style="font-size:13px;color:var(--muted);margin-top:4px" class="en">Company-level udhari tracking</div>
             <div style="font-size:13px;color:var(--muted);margin-top:4px" class="hi" style="display:none">कंपनी स्तर पर उधारी</div>
           </div>
-          <button class="btn btn-primary btn-sm" onclick="openAddCompany()">+ <span class="en">ADD</span><span class="hi" style="display:none">जोड़ो</span></button>
+          <button class="btn btn-primary btn-sm" onclick="openAddCompany()">
+            + <span class="en">ADD</span><span class="hi" style="display:none">जोड़ो</span>
+          </button>
         </div>
         <div class="companies-grid" id="companies-list"></div>
       </section>
@@ -481,26 +1385,48 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
         <div class="prices-grid" id="prices-list"></div>
       </section>
 
-    </div>
-  </div>
+    </div><!-- /content -->
+  </div><!-- /main -->
 
   <!-- MOBILE NAV -->
   <nav class="mobile-nav">
     <div class="mnav-inner">
-      <button class="mnav-item active" data-page="dash" onclick="goPage('dash',this)"><span class="mi">🏠</span><span class="en">Home</span><span class="hi" style="display:none">घर</span></button>
-      <button class="mnav-item" data-page="people" onclick="goPage('people',this)"><span class="mi">👤</span><span class="en">People</span><span class="hi" style="display:none">लोग</span></button>
-      <button class="mnav-item fab-mobile" onclick="openAddEntry(null)"><span class="mi">+</span><span class="en">Add</span><span class="hi" style="display:none">जोड़ो</span></button>
-      <button class="mnav-item" data-page="companies" onclick="goPage('companies',this)"><span class="mi">🏢</span><span class="en">Companies</span><span class="hi" style="display:none">कंपनियाँ</span></button>
-      <button class="mnav-item" data-page="prices" onclick="goPage('prices',this)"><span class="mi">💰</span><span class="en">Prices</span><span class="hi" style="display:none">कीमत</span></button>
+      <button class="mnav-item active" data-page="dash" onclick="goPage('dash',this)">
+        <span class="mi">🏠</span>
+        <span class="en">Home</span><span class="hi" style="display:none">घर</span>
+      </button>
+      <button class="mnav-item" data-page="people" onclick="goPage('people',this)">
+        <span class="mi">👤</span>
+        <span class="en">People</span><span class="hi" style="display:none">लोग</span>
+      </button>
+      <button class="mnav-item fab-mobile" onclick="openAddEntry(null)">
+        <span class="mi">+</span>
+        <span class="en">Add</span><span class="hi" style="display:none">जोड़ो</span>
+      </button>
+      <button class="mnav-item" data-page="companies" onclick="goPage('companies',this)">
+        <span class="mi">🏢</span>
+        <span class="en">Companies</span><span class="hi" style="display:none">कंपनियाँ</span>
+      </button>
+      <button class="mnav-item" data-page="prices" onclick="goPage('prices',this)">
+        <span class="mi">💰</span>
+        <span class="en">Prices</span><span class="hi" style="display:none">कीमत</span>
+      </button>
     </div>
   </nav>
-</div>
 
-<!-- MODALS -->
+</div><!-- /shell -->
+
+<!-- ════════ MODALS ════════ -->
+
+<!-- ADD ENTRY -->
 <div class="modal-bg" id="modal-entry">
   <div class="modal">
     <div class="modal-pill"></div>
-    <div class="modal-title"><span class="en">+ ADD ENTRY</span><span class="hi" style="display:none">+ एंट्री जोड़ो</span></div>
+    <div class="modal-title">
+      <span class="en">+ ADD ENTRY</span>
+      <span class="hi" style="display:none">+ एंट्री जोड़ो</span>
+    </div>
+
     <div class="form-group">
       <label class="form-lbl"><span class="en">WHO PAYS?</span><span class="hi" style="display:none">कौन देगा?</span></label>
       <div class="trow">
@@ -508,23 +1434,39 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
         <button class="topt" id="pt-company" onclick="setPayerType('company')">🏢 <span class="en">Company A/C</span><span class="hi" style="display:none">कंपनी A/C</span></button>
       </div>
     </div>
+
     <div class="form-group" id="fg-person">
       <label class="form-lbl"><span class="en">CUSTOMER NAME</span><span class="hi" style="display:none">ग्राहक का नाम</span></label>
       <input class="form-input" id="e-person" list="plist" placeholder="Type name…"/>
       <datalist id="plist"></datalist>
     </div>
+
     <div class="form-group" id="fg-company" style="display:none">
       <label class="form-lbl"><span class="en">COMPANY ACCOUNT</span><span class="hi" style="display:none">कंपनी का खाता</span></label>
       <select class="form-select" id="e-company"></select>
     </div>
+
     <div class="form-group">
       <label class="form-lbl"><span class="en">DRINK</span><span class="hi" style="display:none">क्या पिएगा?</span></label>
       <div class="drink-grid">
-        <div class="drink-card sel" data-d="chai" onclick="selDrink('chai')"><div class="dc-em">🍵</div><div class="dc-name">Chai</div><div class="dc-price" id="dp-chai">₹10</div></div>
-        <div class="drink-card" data-d="coffee" onclick="selDrink('coffee')"><div class="dc-em">☕</div><div class="dc-name">Coffee</div><div class="dc-price" id="dp-coffee">₹15</div></div>
-        <div class="drink-card" data-d="special" onclick="selDrink('special')"><div class="dc-em">✨</div><div class="dc-name">Special</div><div class="dc-price" id="dp-special">₹20</div></div>
+        <div class="drink-card sel" data-d="chai" onclick="selDrink('chai')">
+          <div class="dc-em">🍵</div>
+          <div class="dc-name">Chai</div>
+          <div class="dc-price" id="dp-chai">₹10</div>
+        </div>
+        <div class="drink-card" data-d="coffee" onclick="selDrink('coffee')">
+          <div class="dc-em">☕</div>
+          <div class="dc-name">Coffee</div>
+          <div class="dc-price" id="dp-coffee">₹15</div>
+        </div>
+        <div class="drink-card" data-d="special" onclick="selDrink('special')">
+          <div class="dc-em">✨</div>
+          <div class="dc-name">Special</div>
+          <div class="dc-price" id="dp-special">₹20</div>
+        </div>
       </div>
     </div>
+
     <div class="form-group">
       <label class="form-lbl"><span class="en">QUANTITY</span><span class="hi" style="display:none">कितनी?</span></label>
       <div class="qty-row">
@@ -533,40 +1475,54 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
         <button class="qty-btn" onclick="changeQty(1)">+</button>
       </div>
     </div>
+
     <div class="total-strip">
       <span class="total-lbl"><span class="en">TOTAL</span><span class="hi" style="display:none">कुल</span></span>
       <span class="total-amt" id="entry-total">₹10</span>
     </div>
-    <button class="btn-full" onclick="submitEntry()"><span class="en">SAVE ENTRY</span><span class="hi" style="display:none">सेव करो</span></button>
+
+    <button class="btn-full" onclick="submitEntry()">
+      <span class="en">SAVE ENTRY</span><span class="hi" style="display:none">सेव करो</span>
+    </button>
     <button class="btn-cancel" onclick="closeModal('modal-entry')">Cancel / रद्द</button>
   </div>
 </div>
 
+<!-- ADD PERSON -->
 <div class="modal-bg" id="modal-person">
   <div class="modal">
     <div class="modal-pill"></div>
-    <div class="modal-title"><span class="en">+ ADD CUSTOMER</span><span class="hi" style="display:none">+ ग्राहक जोड़ो</span></div>
+    <div class="modal-title">
+      <span class="en">+ ADD CUSTOMER</span><span class="hi" style="display:none">+ ग्राहक जोड़ो</span>
+    </div>
     <div class="form-group">
       <label class="form-lbl"><span class="en">FULL NAME</span><span class="hi" style="display:none">पूरा नाम</span></label>
       <input class="form-input" id="np-name" placeholder="e.g. Ramesh Kumar"/>
     </div>
     <div class="form-group">
       <label class="form-lbl"><span class="en">COMPANY</span><span class="hi" style="display:none">कंपनी</span> <em>(optional)</em></label>
-      <select class="form-select" id="np-company"><option value="">— No Company —</option></select>
+      <select class="form-select" id="np-company">
+        <option value="">— No Company —</option>
+      </select>
     </div>
     <div class="form-group">
       <label class="form-lbl"><span class="en">PHONE</span><span class="hi" style="display:none">फोन</span> <em>(optional)</em></label>
       <input class="form-input" id="np-phone" type="tel" placeholder="9876543210"/>
     </div>
-    <button class="btn-full" onclick="submitPerson()"><span class="en">ADD CUSTOMER</span><span class="hi" style="display:none">जोड़ो</span></button>
+    <button class="btn-full" onclick="submitPerson()">
+      <span class="en">ADD CUSTOMER</span><span class="hi" style="display:none">जोड़ो</span>
+    </button>
     <button class="btn-cancel" onclick="closeModal('modal-person')">Cancel / रद्द</button>
   </div>
 </div>
 
+<!-- ADD COMPANY -->
 <div class="modal-bg" id="modal-company">
   <div class="modal">
     <div class="modal-pill"></div>
-    <div class="modal-title"><span class="en">+ ADD COMPANY</span><span class="hi" style="display:none">+ कंपनी जोड़ो</span></div>
+    <div class="modal-title">
+      <span class="en">+ ADD COMPANY</span><span class="hi" style="display:none">+ कंपनी जोड़ो</span>
+    </div>
     <div class="form-group">
       <label class="form-lbl"><span class="en">COMPANY NAME</span><span class="hi" style="display:none">कंपनी का नाम</span></label>
       <input class="form-input" id="nc-name" placeholder="e.g. Tech Solutions Pvt Ltd"/>
@@ -575,11 +1531,14 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
       <label class="form-lbl"><span class="en">FLOOR / BLOCK</span><span class="hi" style="display:none">मंजिल / ब्लॉक</span></label>
       <input class="form-input" id="nc-floor" placeholder="e.g. 3rd Floor, Block B"/>
     </div>
-    <button class="btn-full" onclick="submitCompany()"><span class="en">ADD COMPANY</span><span class="hi" style="display:none">जोड़ो</span></button>
+    <button class="btn-full" onclick="submitCompany()">
+      <span class="en">ADD COMPANY</span><span class="hi" style="display:none">जोड़ो</span>
+    </button>
     <button class="btn-cancel" onclick="closeModal('modal-company')">Cancel / रद्द</button>
   </div>
 </div>
 
+<!-- SETTLE -->
 <div class="modal-bg" id="modal-settle">
   <div class="modal">
     <div class="modal-pill"></div>
@@ -596,6 +1555,7 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
   </div>
 </div>
 
+<!-- DELETE -->
 <div class="modal-bg" id="modal-delete">
   <div class="modal">
     <div class="modal-pill"></div>
@@ -611,25 +1571,27 @@ body { font-family: var(--sans); background: var(--black); color: var(--black); 
   </div>
 </div>
 
-<!-- FIREBASE SDK -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDocs, onSnapshot, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+<style>
+.fab-mobile {
+  background: var(--lime);
+  color: var(--black) !important;
+  border-radius: 50%;
+  width: 48px; height: 48px;
+  margin: 0 auto;
+  font-size: 24px !important;
+  align-self: center;
+}
+.fab-mobile .mi { font-size: 24px !important; }
+</style>
 
-/* ── FIREBASE CONFIG ── */
-const firebaseConfig = {
-  apiKey: "AIzaSyB8WsrueL1lCVeTCQaPSXnz2JxN_IJh4ZY",
-  authDomain: "hisaab-8412a.firebaseapp.com",
-  projectId: "hisaab-8412a",
-  storageBucket: "hisaab-8412a.firebasestorage.app",
-  messagingSenderId: "601045540699",
-  appId: "1:601045540699:web:767e1c4cf6143cada8047e"
-};
+<script>
+/* ════════════════════════════════════════════════════
+   HISAAB — Full App Logic
+   Firebase integration points marked: 🔥 FIREBASE
+   ════════════════════════════════════════════════════ */
+'use strict';
 
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
-
-/* ── STATE ── */
+/* ── STATE ───────────────────────────────────────── */
 const DB = {
   companies: [],
   people:    [],
@@ -637,181 +1599,228 @@ const DB = {
   prices:    { chai:10, coffee:15, special:20 },
 };
 
-let _lang='en', _filter='all', _curDrink='chai', _eQty=1, _payer='personal';
-let _settleTarget=null, _deleteTarget=null;
+let _lang      = 'en';
+let _filter    = 'all';
+let _curDrink  = 'chai';
+let _eQty      = 1;
+let _payer     = 'personal';
+let _settleTarget = null;
+let _deleteTarget = null;
 
-/* ── UTILS ── */
-const today    = () => new Date().toISOString().slice(0,10);
-const initials = n  => n.trim().split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+/* ── UTILS ───────────────────────────────────────── */
+const today  = () => new Date().toISOString().slice(0,10);
+const uid    = p  => p + Date.now() + Math.random().toString(36).slice(2,6);
+const initials = n => n.trim().split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
 
 function fmtDate(s) {
-  if (s===today()) return _lang==='en'?'Today':'आज';
-  const y=new Date(); y.setDate(y.getDate()-1);
-  if (s===y.toISOString().slice(0,10)) return _lang==='en'?'Yesterday':'कल';
+  if (s === today()) return _lang==='en'?'Today':'आज';
+  const y = new Date(); y.setDate(y.getDate()-1);
+  if (s === y.toISOString().slice(0,10)) return _lang==='en'?'Yesterday':'कल';
   return new Date(s+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'});
 }
 
-const drinkEmoji   = d => ({chai:'🍵',coffee:'☕',special:'✨'}[d]||d);
+const drinkEmoji = d => ({chai:'🍵',coffee:'☕',special:'✨'}[d]||d);
 const drinkPillCls = d => ({chai:'pill-chai',coffee:'pill-coffee',special:'pill-special'}[d]||'');
-const getPerson    = id => DB.people.find(p=>p.id===id);
-const getCompany   = id => DB.companies.find(c=>c.id===id);
 
-const personUdhari    = id => DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.amount,0);
-const personTotalCups = id => DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.qty,0);
-const companyUdhari   = id => {
+const getPerson  = id => DB.people.find(p=>p.id===id);
+const getCompany = id => DB.companies.find(c=>c.id===id);
+
+const personUdhari = id =>
+  DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.amount,0);
+
+const personTotalCups = id =>
+  DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.qty,0);
+
+const companyUdhari = id => {
   const pids = DB.people.filter(p=>p.companyId===id).map(p=>p.id);
-  return DB.entries.filter(e=>(pids.includes(e.personId)||e.companyId===id)&&!e.paid).reduce((s,e)=>s+e.amount,0);
+  return DB.entries
+    .filter(e=>(pids.includes(e.personId)||e.companyId===id)&&!e.paid)
+    .reduce((s,e)=>s+e.amount,0);
 };
 
-/* ── DB STATUS ── */
-function setStatus(s, msg) {
-  const el = document.getElementById('db-status');
-  el.className = s; el.textContent = msg;
-  if (s==='connected') setTimeout(()=>{ el.style.opacity='0'; setTimeout(()=>el.remove(),500); }, 2000);
-}
-
-/* ── REAL-TIME LISTENERS ── */
-function startListeners() {
-  // Companies
-  onSnapshot(collection(db,'companies'), snap => {
-    DB.companies = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
-  });
-  // People
-  onSnapshot(collection(db,'people'), snap => {
-    DB.people = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
-  });
-  // Entries
-  onSnapshot(query(collection(db,'entries'),orderBy('date','desc')), snap => {
-    DB.entries = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
-  });
-  // Prices
-  onSnapshot(doc(db,'config','prices'), snap => {
-    if (snap.exists()) {
-      DB.prices = {...DB.prices,...snap.data()};
-      renderPrices();
-      updateTotal();
-      ['chai','coffee','special'].forEach(k=>{
-        const dp=document.getElementById('dp-'+k);
-        if(dp) dp.textContent='₹'+DB.prices[k];
-      });
-    }
-  });
-}
-
-/* ── LANGUAGE ── */
-window.setLang = function(l) {
+/* ── LANGUAGE ────────────────────────────────────── */
+function setLang(l) {
   _lang = l;
   document.querySelectorAll('.en').forEach(e=>e.style.display=l==='en'?'':'none');
   document.querySelectorAll('.hi').forEach(e=>e.style.display=l==='hi'?'':'none');
   document.getElementById('lo-en').classList.toggle('active',l==='en');
   document.getElementById('lo-hi').classList.toggle('active',l==='hi');
   renderAll();
+}
+
+/* ── NAVIGATION ──────────────────────────────────── */
+const PAGE_NAMES = {
+  dash:'Dashboard', people:'People', companies:'Companies', prices:'Prices'
+};
+const PAGE_NAMES_HI = {
+  dash:'डैशबोर्ड', people:'लोग', companies:'कंपनियाँ', prices:'कीमत'
 };
 
-/* ── NAVIGATION ── */
-const PAGE_NAMES    = {dash:'Dashboard',people:'People',companies:'Companies',prices:'Prices'};
-const PAGE_NAMES_HI = {dash:'डैशबोर्ड',people:'लोग',companies:'कंपनियाँ',prices:'कीमत'};
-
-window.goPage = function(pid, btn) {
+function goPage(pid, btn) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item,.mnav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+pid).classList.add('active');
+
+  // Activate matching sidebar + mobile nav items
   document.querySelectorAll(`[data-page="${pid}"]`).forEach(b=>b.classList.add('active'));
-  document.getElementById('page-heading').textContent = _lang==='en'?(PAGE_NAMES[pid]||pid):(PAGE_NAMES_HI[pid]||pid);
+
+  document.getElementById('page-heading').textContent =
+    _lang==='en' ? (PAGE_NAMES[pid]||pid) : (PAGE_NAMES_HI[pid]||pid);
+
   closeSidebar();
   renderAll();
-};
+}
 
-/* ── SIDEBAR ── */
-window.toggleSidebar = () => { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sOverlay').classList.toggle('open'); };
-window.closeSidebar  = () => { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sOverlay').classList.remove('open'); };
+/* ── SIDEBAR ─────────────────────────────────────── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sOverlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sOverlay').classList.remove('open');
+}
 
-/* ── RENDER ── */
-function renderAll() { renderDash(); renderPeople(); renderCompanies(); renderPrices(); updateBadges(); updateSidebarTotal(); }
+/* ── RENDER ALL ──────────────────────────────────── */
+function renderAll() {
+  renderDash();
+  renderPeople();
+  renderCompanies();
+  renderPrices();
+  updateBadges();
+  updateSidebarTotal();
+}
 
+/* ── BADGES ──────────────────────────────────────── */
 function updateBadges() {
   document.getElementById('nb-people').textContent    = DB.people.length;
   document.getElementById('nb-companies').textContent = DB.companies.length;
-  const t = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
-  document.getElementById('nb-dash').textContent = t?'₹'+t:'✓';
+  const totalUdhari = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
+  document.getElementById('nb-dash').textContent = totalUdhari ? '₹'+totalUdhari : '✓';
 }
 
 function updateSidebarTotal() {
-  const t  = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
+  const t = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
   const el = document.getElementById('sb-total');
   el.textContent = '₹'+t;
-  el.className   = 'st-amount'+(t===0?' zero':'');
+  el.className = 'st-amount' + (t===0?' zero':'');
 }
 
-/* ── DASHBOARD ── */
+/* ════════════════════════════════════════════════════
+   DASHBOARD
+   ════════════════════════════════════════════════════ */
 function renderDash() {
-  const unpaid   = DB.entries.filter(e=>!e.paid);
-  const totalUdh = unpaid.reduce((s,e)=>s+e.amount,0);
-  const unpaidPpl= new Set(unpaid.map(e=>e.personId)).size;
-  const todayCups= DB.entries.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+  const unpaid    = DB.entries.filter(e=>!e.paid);
+  const totalUdh  = unpaid.reduce((s,e)=>s+e.amount,0);
+  const unpaidPpl = new Set(unpaid.map(e=>e.personId)).size;
+  const todayCups = DB.entries.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+
   const weekAgo  = new Date(); weekAgo.setDate(weekAgo.getDate()-6);
   const weekStr  = weekAgo.toISOString().slice(0,10);
-  const weekTotal= DB.entries.filter(e=>e.date>=weekStr).reduce((s,e)=>s+e.amount,0);
+  const weekTotal = DB.entries.filter(e=>e.date>=weekStr).reduce((s,e)=>s+e.amount,0);
 
+  // Hero
   const hTotalEl = document.getElementById('h-total');
   hTotalEl.textContent = '₹'+totalUdh;
-  hTotalEl.className   = 'hero-amount'+(totalUdh===0?' zero':'');
-  document.getElementById('h-meta').textContent = (_lang==='en'?'from ':'')+unpaidPpl+(_lang==='en'?' people':' लोग');
+  hTotalEl.className   = 'hero-amount' + (totalUdh===0?' zero':'');
+  document.getElementById('h-meta').textContent =
+    (_lang==='en'?'from ':'') + unpaidPpl + (_lang==='en'?' people':' लोग');
   document.getElementById('h-today').textContent = todayCups;
   document.getElementById('h-week').textContent  = '₹'+weekTotal;
-  document.getElementById('h-tag').textContent   = new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'}).toUpperCase();
-  document.getElementById('s-customers').textContent  = DB.people.length;
-  document.getElementById('s-unpaid').textContent     = unpaidPpl;
-  document.getElementById('s-companies').textContent  = DB.companies.length;
-  document.getElementById('s-today-cups').textContent = todayCups;
 
-  const recent = [...DB.entries].slice(0,8);
+  // Today tag
+  document.getElementById('h-tag').textContent =
+    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'}).toUpperCase();
+
+  // Stats
+  document.getElementById('s-customers').textContent   = DB.people.length;
+  document.getElementById('s-unpaid').textContent      = unpaidPpl;
+  document.getElementById('s-companies').textContent   = DB.companies.length;
+  document.getElementById('s-today-cups').textContent  = todayCups;
+
+  // Recent
+  const recent = [...DB.entries]
+    .sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id))
+    .slice(0,8);
+
   const el = document.getElementById('dash-recent');
   if (!recent.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">NO ENTRIES YET</div><div class="empty-sub">${_lang==='en'?'Tap "+ ADD CHAI" to log your first entry.':'ऊपर "+ ADD CHAI" दबाओ।'}</div></div>`;
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">📋</div>
+      <div class="empty-title">NO ENTRIES YET</div>
+      <div class="empty-sub">${_lang==='en'?'Tap "+ ADD CHAI" to log your first entry.':'ऊपर "+ ADD CHAI" दबाओ।'}</div>
+    </div>`;
     return;
   }
-  el.innerHTML = recent.map(e=>{
-    const p=getPerson(e.personId); if(!p) return '';
-    const co=getCompany(p.companyId);
+
+  el.innerHTML = recent.map(e => {
+    const p = getPerson(e.personId);
+    if (!p) return '';
+    const co = getCompany(p.companyId);
     return `<div class="entry-row ${e.paid?'paid':'unpaid'}">
       <div class="av">${initials(p.name)}</div>
-      <div class="entry-info"><div class="entry-name">${p.name}</div><div class="entry-meta">${fmtDate(e.date)}${co?' · '+co.name:''}</div></div>
-      <div class="entry-right"><div class="entry-amt ${e.paid?'paid':''}">₹${e.amount}</div><div class="drink-pill ${drinkPillCls(e.drink)}">${drinkEmoji(e.drink)} ${e.drink.toUpperCase()} ×${e.qty}</div></div>
+      <div class="entry-info">
+        <div class="entry-name">${p.name}</div>
+        <div class="entry-meta">${fmtDate(e.date)}${co?' · '+co.name:''}</div>
+      </div>
+      <div class="entry-right">
+        <div class="entry-amt ${e.paid?'paid':''}">₹${e.amount}</div>
+        <div class="drink-pill ${drinkPillCls(e.drink)}">${drinkEmoji(e.drink)} ${e.drink.toUpperCase()} ×${e.qty}</div>
+      </div>
     </div>`;
   }).join('');
 }
 
-/* ── PEOPLE ── */
-window.setFilter = function(f,btn) {
-  _filter=f;
+/* ════════════════════════════════════════════════════
+   PEOPLE
+   ════════════════════════════════════════════════════ */
+function setFilter(f, btn) {
+  _filter = f;
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
   btn?.classList.add('active');
   renderPeople();
-};
+}
 
 function renderPeople() {
   const q = (document.getElementById('people-search')?.value||'').toLowerCase().trim();
   let list = [...DB.people];
-  if (q) list = list.filter(p=>p.name.toLowerCase().includes(q)||(getCompany(p.companyId)?.name||'').toLowerCase().includes(q));
+
+  if (q) list = list.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    (getCompany(p.companyId)?.name||'').toLowerCase().includes(q));
+
   if (_filter==='unpaid')  list = list.filter(p=>personUdhari(p.id)>0);
   if (_filter==='settled') list = list.filter(p=>personUdhari(p.id)===0);
 
   const el = document.getElementById('people-list');
   if (!list.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">NO CUSTOMERS</div><div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register your first customer.':'ऊपर "+ जोड़ो" दबाओ।'}</div></div>`;
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">👤</div>
+      <div class="empty-title">NO CUSTOMERS</div>
+      <div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register your first customer.':'ऊपर "+ जोड़ो" दबाओ।'}</div>
+    </div>`;
     return;
   }
-  el.innerHTML = list.map(p=>{
-    const udhari=personUdhari(p.id), cups=personTotalCups(p.id);
-    const co=getCompany(p.companyId), settled=udhari===0;
-    const history=DB.entries.filter(e=>e.personId===p.id).slice(0,10);
+
+  el.innerHTML = list.map(p => {
+    const udhari  = personUdhari(p.id);
+    const cups    = personTotalCups(p.id);
+    const co      = getCompany(p.companyId);
+    const settled = udhari===0;
+    const history = DB.entries.filter(e=>e.personId===p.id)
+      .sort((a,b)=>b.date.localeCompare(a.date)).slice(0,10);
+
     const histHTML = history.length
-      ? history.map(e=>`<div class="hist-row"><div><div style="font-size:14px;font-weight:600;color:var(--black)">${fmtDate(e.date)}</div><div class="hist-drink">${drinkEmoji(e.drink)} ${e.drink} ×${e.qty}</div></div><div class="hist-price ${e.paid?'paid':'owed'}">₹${e.amount}</div></div>`).join('')
+      ? history.map(e=>`
+          <div class="hist-row">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--black)">${fmtDate(e.date)}</div>
+              <div class="hist-drink">${drinkEmoji(e.drink)} ${e.drink} ×${e.qty}</div>
+            </div>
+            <div class="hist-price ${e.paid?'paid':'owed'}">₹${e.amount}</div>
+          </div>`).join('')
       : `<div style="padding:14px 20px;font-size:13px;color:var(--muted)">${_lang==='en'?'No history.':'कोई इतिहास नहीं।'}</div>`;
+
     return `<div class="person-card">
       <div class="person-card-top">
         <div class="person-av">${initials(p.name)}</div>
@@ -821,39 +1830,64 @@ function renderPeople() {
           ${p.phone?`<div class="person-company">📱 ${p.phone}</div>`:''}
         </div>
         <div class="person-due-col">
-          <div class="person-due ${settled?'clear':''}">${settled?(_lang==='en'?'✓ CLEAR':'✓ साफ'):'₹'+udhari}</div>
+          <div class="person-due ${settled?'clear':''}">
+            ${settled?(_lang==='en'?'✓ CLEAR':'✓ साफ'):'₹'+udhari}
+          </div>
           <div class="person-cups">${cups} ${_lang==='en'?'cups due':'कप बाकी'}</div>
         </div>
       </div>
       <div class="person-card-footer">
-        ${!settled?`<button class="btn btn-success btn-sm" onclick="openSettle('person','${p.id}')">✓ ${_lang==='en'?'SETTLE':'हिसाब'}</button>`:''}
-        <button class="btn btn-primary btn-sm" onclick="openAddEntry('${p.id}')">+ ${_lang==='en'?'CHAI':'चाय'}</button>
-        <button class="btn btn-ghost btn-sm" onclick="toggleHist('hist-${p.id}')">📋 ${_lang==='en'?'HISTORY':'इतिहास'}</button>
-        <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="openDelete('person','${p.id}','${p.name.replace(/'/g,"\\'")}')">🗑</button>
+        ${!settled?`<button class="btn btn-success btn-sm" onclick="openSettle('person','${p.id}')">
+          ✓ ${_lang==='en'?'SETTLE':'हिसाब'}
+        </button>`:''}
+        <button class="btn btn-primary btn-sm" onclick="openAddEntry('${p.id}')">
+          + ${_lang==='en'?'CHAI':'चाय'}
+        </button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleHist('hist-${p.id}')">
+          📋 ${_lang==='en'?'HISTORY':'इतिहास'}
+        </button>
+        <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="openDelete('person','${p.id}','${p.name.replace(/'/g,"\\'")}')">
+          🗑
+        </button>
       </div>
       <div class="person-history" id="hist-${p.id}">${histHTML}</div>
     </div>`;
   }).join('');
 }
 
-window.toggleHist = id => document.getElementById(id)?.classList.toggle('open');
+function toggleHist(id) { document.getElementById(id)?.classList.toggle('open'); }
 
-/* ── COMPANIES ── */
+/* ════════════════════════════════════════════════════
+   COMPANIES
+   ════════════════════════════════════════════════════ */
 function renderCompanies() {
   const el = document.getElementById('companies-list');
   if (!DB.companies.length) {
-    el.innerHTML = `<div class="empty"><div class="empty-icon">🏢</div><div class="empty-title">NO COMPANIES</div><div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register a company.':'ऊपर "+ जोड़ो" दबाओ।'}</div></div>`;
+    el.innerHTML = `<div class="empty">
+      <div class="empty-icon">🏢</div>
+      <div class="empty-title">NO COMPANIES</div>
+      <div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register a company.':'ऊपर "+ जोड़ो" दबाओ।'}</div>
+    </div>`;
     return;
   }
-  el.innerHTML = DB.companies.map(co=>{
-    const staff=DB.people.filter(p=>p.companyId===co.id);
-    const udhari=companyUdhari(co.id);
-    const allE=DB.entries.filter(e=>staff.find(p=>p.id===e.personId)||e.companyId===co.id);
-    const dueCups=allE.filter(e=>!e.paid).reduce((s,e)=>s+e.qty,0);
-    const todayC=allE.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+
+  el.innerHTML = DB.companies.map(co => {
+    const staff   = DB.people.filter(p=>p.companyId===co.id);
+    const udhari  = companyUdhari(co.id);
+    const allE    = DB.entries.filter(e=>staff.find(p=>p.id===e.personId)||e.companyId===co.id);
+    const dueCups = allE.filter(e=>!e.paid).reduce((s,e)=>s+e.qty,0);
+    const todayC  = allE.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+
     const staffHTML = staff.length
-      ? staff.map(p=>{const u=personUdhari(p.id);return `<div class="staff-row"><span class="staff-name">${p.name}</span><span class="staff-owe ${u>0?'owed':'clear'}">${u>0?'₹'+u:(_lang==='en'?'CLEAR':'साफ')}</span></div>`;}).join('')
+      ? staff.map(p=>{
+          const u = personUdhari(p.id);
+          return `<div class="staff-row">
+            <span class="staff-name">${p.name}</span>
+            <span class="staff-owe ${u>0?'owed':'clear'}">${u>0?'₹'+u:(_lang==='en'?'CLEAR':'साफ')}</span>
+          </div>`;
+        }).join('')
       : `<div class="staff-row"><span class="staff-owe clear">${_lang==='en'?'No staff linked':'कोई स्टाफ नहीं'}</span></div>`;
+
     return `<div class="company-card" data-initial="${co.name.charAt(0).toUpperCase()}">
       <div class="co-tag">${_lang==='en'?'COMPANY':'कंपनी'}</div>
       <div class="co-name">${co.name}</div>
@@ -866,24 +1900,33 @@ function renderCompanies() {
         <div class="cst"><div class="cst-v">${todayC}</div><div class="cst-l">TODAY</div></div>
       </div>
       <div class="co-actions">
-        <button class="btn btn-lime btn-sm" style="justify-content:center" onclick="openSettle('company','${co.id}')">✓ ${_lang==='en'?'SETTLE ALL':'सब साफ'}</button>
-        <button class="btn btn-danger btn-sm" style="justify-content:center" onclick="openDelete('company','${co.id}','${co.name.replace(/'/g,"\\'")}')">🗑 ${_lang==='en'?'DELETE':'हटाओ'}</button>
+        <button class="btn btn-lime btn-sm" style="justify-content:center" onclick="openSettle('company','${co.id}')">
+          ✓ ${_lang==='en'?'SETTLE ALL':'सब साफ'}
+        </button>
+        <button class="btn btn-danger btn-sm" style="justify-content:center" onclick="openDelete('company','${co.id}','${co.name.replace(/'/g,"\\'")}')">
+          🗑 ${_lang==='en'?'DELETE':'हटाओ'}
+        </button>
       </div>
-      <button class="co-toggle-btn" onclick="toggleStaff('staff-${co.id}')">▾ ${_lang==='en'?'VIEW STAFF':'स्टाफ देखो'}</button>
+      <button class="co-toggle-btn" onclick="toggleStaff('staff-${co.id}')">
+        ▾ ${_lang==='en'?'VIEW STAFF':'स्टाफ देखो'}
+      </button>
       <div class="co-staff-list" id="staff-${co.id}">${staffHTML}</div>
     </div>`;
   }).join('');
 }
 
-window.toggleStaff = id => document.getElementById(id)?.classList.toggle('open');
+function toggleStaff(id) { document.getElementById(id)?.classList.toggle('open'); }
 
-/* ── PRICES ── */
+/* ════════════════════════════════════════════════════
+   PRICES
+   ════════════════════════════════════════════════════ */
 function renderPrices() {
   const items = [
-    {key:'chai',em:'🍵',en:'Chai',hi:'चाय'},
-    {key:'coffee',em:'☕',en:'Coffee',hi:'कॉफ़ी'},
-    {key:'special',em:'✨',en:'Special Chai',hi:'स्पेशल चाय'},
+    { key:'chai',    em:'🍵', en:'Chai',         hi:'चाय',       dark:true  },
+    { key:'coffee',  em:'☕', en:'Coffee',       hi:'कॉफ़ी',      dark:false },
+    { key:'special', em:'✨', en:'Special Chai', hi:'स्पेशल चाय', dark:true  },
   ];
+
   document.getElementById('prices-list').innerHTML = items.map(it=>`
     <div class="price-card">
       <div class="pc-head">
@@ -898,156 +1941,290 @@ function renderPrices() {
           <span class="pcv" id="pc-val-${it.key}">₹${DB.prices[it.key]}</span>
           <button class="pcb" onclick="adjPrice('${it.key}',1)">+</button>
         </div>
-        <button class="btn-save-price" onclick="savePrice('${it.key}')">${_lang==='en'?'SAVE':'सेव'}</button>
+        <button class="btn-save-price" onclick="savePrice('${it.key}')">
+          ${_lang==='en'?'SAVE':'सेव'}
+        </button>
       </div>
     </div>`).join('');
 }
 
-window.adjPrice = function(key,d) {
-  const el=document.getElementById('pc-val-'+key);
-  const v=parseInt(el.textContent.replace('₹',''))||0;
-  el.textContent='₹'+Math.max(1,v+d);
-};
+function adjPrice(key, d) {
+  const el = document.getElementById('pc-val-'+key);
+  const v  = parseInt(el.textContent.replace('₹',''))||0;
+  el.textContent = '₹'+Math.max(1,v+d);
+}
 
-window.savePrice = async function(key) {
-  const v=parseInt(document.getElementById('pc-val-'+key).textContent.replace('₹',''))||1;
-  DB.prices[key]=v;
-  await setDoc(doc(db,'config','prices'),{[key]:v},{merge:true});
-  document.getElementById('pc-big-'+key).textContent='₹'+v;
-  const dp=document.getElementById('dp-'+key);
-  if(dp) dp.textContent='₹'+v;
+function savePrice(key) {
+  const v = parseInt(document.getElementById('pc-val-'+key).textContent.replace('₹',''))||1;
+  DB.prices[key] = v;
+  // 🔥 FIREBASE: db.collection('config').doc('prices').set({ [key]: v }, { merge: true });
+  document.getElementById('pc-big-'+key).textContent = '₹'+v;
+  const dp = document.getElementById('dp-'+key);
+  if (dp) dp.textContent = '₹'+v;
   showToast(`✓ ${key.toUpperCase()} PRICE SAVED`);
   updateTotal();
-};
+}
 
-/* ── ENTRY MODAL ── */
-window.openAddEntry = function(prefillPid) {
-  const dl=document.getElementById('plist');
-  dl.innerHTML=DB.people.map(p=>`<option value="${p.name}">`).join('');
-  document.getElementById('e-person').value='';
-  if(prefillPid){const p=getPerson(prefillPid);if(p)document.getElementById('e-person').value=p.name;}
-  const cs=document.getElementById('e-company');
-  cs.innerHTML=DB.companies.length?DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join(''):`<option value="">— No companies added yet —</option>`;
-  _curDrink='chai';_eQty=1;
+/* ════════════════════════════════════════════════════
+   ENTRY MODAL
+   ════════════════════════════════════════════════════ */
+function openAddEntry(prefillPid) {
+  const dl = document.getElementById('plist');
+  dl.innerHTML = DB.people.map(p=>`<option value="${p.name}">`).join('');
+  document.getElementById('e-person').value = '';
+  if (prefillPid) {
+    const p = getPerson(prefillPid);
+    if (p) document.getElementById('e-person').value = p.name;
+  }
+
+  const cs = document.getElementById('e-company');
+  cs.innerHTML = DB.companies.length
+    ? DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')
+    : `<option value="">— No companies added yet —</option>`;
+
+  _curDrink = 'chai'; _eQty = 1;
   setPayerType('personal');
   document.querySelectorAll('.drink-card').forEach(d=>d.classList.remove('sel'));
   document.querySelector('[data-d="chai"]')?.classList.add('sel');
-  document.getElementById('qty-val').textContent=1;
+  document.getElementById('qty-val').textContent = 1;
   updateTotal();
   openModal('modal-entry');
-};
+}
 
-window.setPayerType = function(t) {
-  _payer=t;
-  document.getElementById('pt-personal').classList.toggle('sel',t==='personal');
-  document.getElementById('pt-company').classList.toggle('sel',t==='company');
-  document.getElementById('fg-person').style.display=t==='personal'?'':'none';
-  document.getElementById('fg-company').style.display=t==='company'?'':'none';
-};
+function setPayerType(t) {
+  _payer = t;
+  document.getElementById('pt-personal').classList.toggle('sel', t==='personal');
+  document.getElementById('pt-company').classList.toggle('sel', t==='company');
+  document.getElementById('fg-person').style.display  = t==='personal'?'':'none';
+  document.getElementById('fg-company').style.display = t==='company'?'':'none';
+}
 
-window.selDrink = function(d) {
-  _curDrink=d;
+function selDrink(d) {
+  _curDrink = d;
   document.querySelectorAll('.drink-card').forEach(c=>c.classList.remove('sel'));
   document.querySelector(`[data-d="${d}"]`)?.classList.add('sel');
   updateTotal();
-};
+}
 
-window.changeQty = function(d) {
-  _eQty=Math.max(1,_eQty+d);
-  document.getElementById('qty-val').textContent=_eQty;
+function changeQty(d) {
+  _eQty = Math.max(1,_eQty+d);
+  document.getElementById('qty-val').textContent = _eQty;
   updateTotal();
-};
+}
 
 function updateTotal() {
-  const t=document.getElementById('entry-total');
-  if(t) t.textContent='₹'+(DB.prices[_curDrink]*_eQty);
+  const t = document.getElementById('entry-total');
+  if (t) t.textContent = '₹'+(DB.prices[_curDrink]*_eQty);
 }
-window.updateTotal = updateTotal;
 
-window.submitEntry = async function() {
+function submitEntry() {
   let personId=null, companyId=null;
-  if(_payer==='personal'){
-    const nm=document.getElementById('e-person').value.trim();
-    if(!nm){showToast('⚠ ENTER A NAME');return;}
-    let p=DB.people.find(x=>x.name.toLowerCase()===nm.toLowerCase());
-    if(!p){
-      const ref=await addDoc(collection(db,'people'),{name:nm,companyId:null,phone:'',createdAt:today()});
-      p={id:ref.id,name:nm,companyId:null,phone:'',createdAt:today()};
+
+  if (_payer==='personal') {
+    const nm = document.getElementById('e-person').value.trim();
+    if (!nm) { showToast('⚠ ENTER A NAME'); return; }
+    let p = DB.people.find(x=>x.name.toLowerCase()===nm.toLowerCase());
+    if (!p) {
+      p = { id:uid('p'), name:nm, companyId:null, phone:'', createdAt:today() };
+      DB.people.push(p);
+      // 🔥 FIREBASE: await db.collection('people').add(p);
     }
-    personId=p.id;
+    personId = p.id;
   } else {
-    companyId=document.getElementById('e-company').value;
-    if(!companyId){showToast('⚠ SELECT A COMPANY');return;}
-    const co=getCompany(companyId);
-    let rep=DB.people.find(p=>p.companyId===companyId&&p.name===co.name+' (Office)');
-    if(!rep){
-      const ref=await addDoc(collection(db,'people'),{name:co.name+' (Office)',companyId,phone:'',createdAt:today()});
-      rep={id:ref.id};
+    companyId = document.getElementById('e-company').value;
+    if (!companyId) { showToast('⚠ SELECT A COMPANY'); return; }
+    const co  = getCompany(companyId);
+    let rep = DB.people.find(p=>p.companyId===companyId&&p.name===co.name+' (Office)');
+    if (!rep) {
+      rep = { id:uid('p'), name:co.name+' (Office)', companyId, phone:'', createdAt:today() };
+      DB.people.push(rep);
     }
-    personId=rep.id;
+    personId = rep.id;
   }
-  const amt=DB.prices[_curDrink]*_eQty;
-  await addDoc(collection(db,'entries'),{personId,companyId,drink:_curDrink,qty:_eQty,amount:amt,date:today(),paid:false});
+
+  const amt   = DB.prices[_curDrink]*_eQty;
+  const entry = { id:uid('e'), personId, companyId, drink:_curDrink, qty:_eQty, amount:amt, date:today(), paid:false };
+  DB.entries.push(entry);
+  // 🔥 FIREBASE: await db.collection('entries').add(entry);
+
   closeModal('modal-entry');
   showToast(`✓ ${_eQty}× ${_curDrink.toUpperCase()} — ₹${amt}`);
-};
+  renderAll();
+}
 
-/* ── PERSON MODAL ── */
-window.openAddPerson = function() {
-  document.getElementById('np-name').value='';
-  document.getElementById('np-phone').value='';
-  const cs=document.getElementById('np-company');
-  cs.innerHTML=`<option value="">— No Company —</option>`+DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+/* ════════════════════════════════════════════════════
+   PERSON MODAL
+   ════════════════════════════════════════════════════ */
+function openAddPerson() {
+  document.getElementById('np-name').value  = '';
+  document.getElementById('np-phone').value = '';
+  const cs = document.getElementById('np-company');
+  cs.innerHTML = `<option value="">— No Company —</option>` +
+    DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
   openModal('modal-person');
-};
+}
 
-window.submitPerson = async function() {
-  const name=document.getElementById('np-name').value.trim();
-  if(!name){showToast('⚠ ENTER NAME');return;}
-  if(DB.people.find(p=>p.name.toLowerCase()===name.toLowerCase())){showToast('⚠ NAME ALREADY EXISTS');return;}
-  await addDoc(collection(db,'people'),{name,companyId:document.getElementById('np-company').value||null,phone:document.getElementById('np-phone').value.trim(),createdAt:today()});
+function submitPerson() {
+  const name = document.getElementById('np-name').value.trim();
+  if (!name) { showToast('⚠ ENTER NAME'); return; }
+  if (DB.people.find(p=>p.name.toLowerCase()===name.toLowerCase())) {
+    showToast('⚠ NAME ALREADY EXISTS'); return;
+  }
+  const p = {
+    id:uid('p'), name,
+    companyId: document.getElementById('np-company').value||null,
+    phone:     document.getElementById('np-phone').value.trim(),
+    createdAt: today(),
+  };
+  DB.people.push(p);
+  // 🔥 FIREBASE: await db.collection('people').add(p);
   closeModal('modal-person');
   showToast(`✓ ${name.toUpperCase()} ADDED`);
-};
+  renderAll();
+}
 
-/* ── COMPANY MODAL ── */
-window.openAddCompany = function() {
-  document.getElementById('nc-name').value='';
-  document.getElementById('nc-floor').value='';
+/* ════════════════════════════════════════════════════
+   COMPANY MODAL
+   ════════════════════════════════════════════════════ */
+function openAddCompany() {
+  document.getElementById('nc-name').value  = '';
+  document.getElementById('nc-floor').value = '';
   openModal('modal-company');
-};
+}
 
-window.submitCompany = async function() {
-  const name=document.getElementById('nc-name').value.trim();
-  if(!name){showToast('⚠ ENTER COMPANY NAME');return;}
-  await addDoc(collection(db,'companies'),{name,floor:document.getElementById('nc-floor').value.trim(),createdAt:today()});
+function submitCompany() {
+  const name = document.getElementById('nc-name').value.trim();
+  if (!name) { showToast('⚠ ENTER COMPANY NAME'); return; }
+  const co = { id:uid('c'), name, floor:document.getElementById('nc-floor').value.trim(), createdAt:today() };
+  DB.companies.push(co);
+  // 🔥 FIREBASE: await db.collection('companies').add(co);
   closeModal('modal-company');
   showToast(`✓ ${name.toUpperCase()} ADDED`);
-};
+  renderAll();
+}
 
-/* ── SETTLE ── */
-window.openSettle = function(type,id) {
-  _settleTarget={type,id};
-  if(type==='person'){
-    const p=getPerson(id),u=personUdhari(id);
-    document.getElementById('settle-msg').textContent='SETTLE: '+p.name.toUpperCase();
-    document.getElementById('settle-amt').textContent='₹'+u;
-    document.getElementById('settle-sub').textContent=_lang==='en'?'All unpaid entries will be marked paid.':'सभी बकाया एंट्री भुगतान हो जाएगी।';
+/* ════════════════════════════════════════════════════
+   SETTLE
+   ════════════════════════════════════════════════════ */
+function openSettle(type, id) {
+  _settleTarget = { type, id };
+  if (type==='person') {
+    const p = getPerson(id);
+    const u = personUdhari(id);
+    document.getElementById('settle-msg').textContent = 'SETTLE: '+p.name.toUpperCase();
+    document.getElementById('settle-amt').textContent = '₹'+u;
+    document.getElementById('settle-sub').textContent =
+      _lang==='en'?'All unpaid entries will be marked paid.':'सभी बकाया एंट्री भुगतान हो जाएगी।';
   } else {
-    const co=getCompany(id),u=companyUdhari(id);
-    document.getElementById('settle-msg').textContent='SETTLE: '+co.name.toUpperCase();
-    document.getElementById('settle-amt').textContent='₹'+u;
-    document.getElementById('settle-sub').textContent=_lang==='en'?'All staff entries marked paid.':'सब स्टाफ की एंट्री भुगतान हो जाएगी।';
+    const co = getCompany(id);
+    const u  = companyUdhari(id);
+    document.getElementById('settle-msg').textContent = 'SETTLE: '+co.name.toUpperCase();
+    document.getElementById('settle-amt').textContent = '₹'+u;
+    document.getElementById('settle-sub').textContent =
+      _lang==='en'?'All staff entries marked paid.':'सब स्टाफ की एंट्री भुगतान हो जाएगी।';
   }
   openModal('modal-settle');
-};
+}
 
-window.confirmSettle = async function() {
-  if(!_settleTarget) return;
-  const {type,id}=_settleTarget;
-  const batch=writeBatch(db);
-  if(type==='person'){
-    DB.entries.filter(e=>e.personId===id&&!e.paid).forEach(e=>batch.update(doc(db,'entries',e.id),{paid:true}));
+function confirmSettle() {
+  if (!_settleTarget) return;
+  const { type, id } = _settleTarget;
+  if (type==='person') {
+    DB.entries.forEach(e=>{ if(e.personId===id) e.paid=true; });
+    // 🔥 FIREBASE: batch update entries where personId===id → paid=true
   } else {
-    const pids=DB.people.filter(p=>p.companyId===id).map(p=>p.id);
-    DB.entries.filter(e=>(pids.includes(e.person
+    const pids = DB.people.filter(p=>p.companyId===id).map(p=>p.id);
+    DB.entries.forEach(e=>{ if(pids.includes(e.personId)||e.companyId===id) e.paid=true; });
+    // 🔥 FIREBASE: batch update entries where companyId===id or personId in pids
+  }
+  closeModal('modal-settle');
+  showToast('✓ ACCOUNT SETTLED');
+  renderAll();
+}
+
+/* ════════════════════════════════════════════════════
+   DELETE
+   ════════════════════════════════════════════════════ */
+function openDelete(type, id, name) {
+  _deleteTarget = { type, id };
+  document.getElementById('delete-msg').textContent = 'DELETE '+name.toUpperCase()+'?';
+  let sub;
+  if (type==='person') {
+    const c = DB.entries.filter(e=>e.personId===id).length;
+    sub = _lang==='en'
+      ? `Customer + ${c} entry/entries will be permanently deleted.`
+      : `ग्राहक और उनकी ${c} एंट्री पक्के हट जाएगी।`;
+  } else {
+    const sc = DB.people.filter(p=>p.companyId===id).length;
+    sub = _lang==='en'
+      ? `Company deleted. ${sc} staff become unlinked (not deleted).`
+      : `कंपनी हटेगी। ${sc} स्टाफ का लिंक हटेगा, वो नहीं हटेंगे।`;
+  }
+  document.getElementById('delete-sub').textContent = sub;
+  openModal('modal-delete');
+}
+
+function confirmDelete() {
+  if (!_deleteTarget) return;
+  const { type, id } = _deleteTarget;
+  if (type==='person') {
+    DB.people  = DB.people.filter(p=>p.id!==id);
+    DB.entries = DB.entries.filter(e=>e.personId!==id);
+    // 🔥 FIREBASE: db.collection('people').doc(id).delete();
+    // 🔥 FIREBASE: batch delete entries where personId===id
+    showToast('🗑 CUSTOMER DELETED');
+  } else {
+    DB.companies = DB.companies.filter(c=>c.id!==id);
+    DB.people.forEach(p=>{ if(p.companyId===id) p.companyId=null; });
+    // 🔥 FIREBASE: db.collection('companies').doc(id).delete();
+    // 🔥 FIREBASE: batch update people.companyId=null where companyId===id
+    showToast('🗑 COMPANY DELETED');
+  }
+  closeModal('modal-delete');
+  renderAll();
+}
+
+/* ════════════════════════════════════════════════════
+   MODAL HELPERS
+   ════════════════════════════════════════════════════ */
+function openModal(id)  { document.getElementById(id)?.classList.add('open'); }
+function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
+
+document.querySelectorAll('.modal-bg').forEach(bg=>{
+  bg.addEventListener('click', e=>{ if(e.target===bg) bg.classList.remove('open'); });
+});
+
+/* ════════════════════════════════════════════════════
+   TOAST
+   ════════════════════════════════════════════════════ */
+let _tt;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(_tt);
+  _tt = setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ════════════════════════════════════════════════════
+   INIT
+   ════════════════════════════════════════════════════ */
+window.addEventListener('load', ()=>{
+  // Set date in sidebar
+  document.getElementById('sidebar-date').textContent =
+    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+
+  // 🔥 FIREBASE: initializeApp(firebaseConfig) then load from Firestore
+
+  // Loading screen
+  setTimeout(()=>{
+    const ls = document.getElementById('loading');
+    ls.classList.add('out');
+    setTimeout(()=>ls.remove(),500);
+  }, 1400);
+
+  renderAll();
+});
+</script>
+</body>
+</html>
