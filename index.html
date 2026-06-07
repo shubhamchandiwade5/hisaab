@@ -82,6 +82,22 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .btn-add-main{display:flex;align-items:center;gap:8px;background:var(--black);color:var(--lime);border:none;border-radius:var(--r8);padding:10px 20px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:all 0.15s}
 .btn-add-main:hover{background:#222}
 
+/* Topbar lang pill — mobile only */
+.topbar-lang-pill{
+  display:none;
+  background:rgba(200,240,0,0.15);
+  border:1.5px solid var(--lime);
+  color:var(--lime);
+  border-radius:var(--r8);
+  padding:6px 12px;
+  font-family:var(--mono);
+  font-size:12px;font-weight:700;
+  cursor:pointer;
+  transition:all 0.15s;
+  white-space:nowrap;
+}
+.topbar-lang-pill:active{background:var(--lime);color:var(--black)}
+
 /* MOBILE NAV */
 .mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--black);border-top:1px solid #1e1e1e;z-index:200}
 .mnav-inner{display:flex;height:60px}
@@ -340,6 +356,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   .main{margin-left:0}
   .ham{display:flex}
   .btn-add-main{display:none}
+  .topbar-lang-pill{display:block}
   .content{padding:20px 16px 80px}
   .topbar{padding:0 16px;height:56px}
   .mobile-nav{display:block}
@@ -385,6 +402,15 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
       <div class="wordmark-sub">हिसाब — Chai Tracker</div>
       <div class="sidebar-date" id="sidebar-date"></div>
     </div>
+    <!-- LANGUAGE TOGGLE — visible on both desktop and mobile -->
+    <div class="sidebar-lang" style="padding:14px 16px;border-bottom:1px solid #1e1e1e">
+      <div class="sidebar-lang-label">Language / भाषा</div>
+      <div class="lang-toggle">
+        <button class="lang-opt active" id="lo-en" onclick="setLang('en')">English</button>
+        <button class="lang-opt" id="lo-hi" onclick="setLang('hi')">हिन्दी</button>
+      </div>
+    </div>
+
     <nav class="sidebar-nav">
       <div class="nav-label">Menu</div>
       <button class="nav-item active" data-page="dash" onclick="goPage('dash',this)">
@@ -411,14 +437,6 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
       <div class="st-label">TOTAL UDHARI</div>
       <div class="st-amount" id="sb-total">₹0</div>
     </div>
-    <!-- LANGUAGE TOGGLE IN SIDEBAR -->
-    <div class="sidebar-lang">
-      <div class="sidebar-lang-label">Language / भाषा</div>
-      <div class="lang-toggle">
-        <button class="lang-opt active" id="lo-en" onclick="setLang('en')">English</button>
-        <button class="lang-opt" id="lo-hi" onclick="setLang('hi')">हिन्दी</button>
-      </div>
-    </div>
   </aside>
 
   <div class="sidebar-overlay" id="sOverlay" onclick="closeSidebar()"></div>
@@ -433,6 +451,8 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
       </div>
       <div class="topbar-actions">
         <button class="btn-add-main" onclick="openAddEntry(null)">+ ADD CHAI</button>
+        <!-- Lang pill — visible on mobile only -->
+        <button class="topbar-lang-pill" id="topbar-lang-pill" onclick="setLang(_lang==='en'?'hi':'en')">हिन्दी</button>
       </div>
     </header>
 
@@ -846,9 +866,13 @@ function setLang(l) {
   _lang=l;
   document.querySelectorAll('.en').forEach(e=>e.style.display=l==='en'?'':'none');
   document.querySelectorAll('.hi').forEach(e=>e.style.display=l==='hi'?'':'none');
-  // Sidebar lang toggles (desktop + mobile — same sidebar)
+  // Sidebar lang toggles
   document.getElementById('lo-en').classList.toggle('active',l==='en');
   document.getElementById('lo-hi').classList.toggle('active',l==='hi');
+  // Topbar pill — shows opposite so user can switch
+  const pill = document.getElementById('topbar-lang-pill');
+  if(pill) pill.textContent = l==='en' ? 'हिन्दी' : 'English';
+  closeSidebar();
   renderAll();
 }
 
