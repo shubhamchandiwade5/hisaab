@@ -91,13 +91,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .fab-mobile{background:var(--lime);color:var(--black)!important;border-radius:50%;width:46px;height:46px;margin:0 auto;align-self:center;flex-shrink:0}
 .fab-mobile .mi{font-size:22px!important;color:var(--black)!important}
 
-/* Mobile lang bar — shown only on mobile below nav */
-.mobile-lang-bar{display:none;background:#111;border-top:1px solid #1e1e1e;padding:8px 16px}
-.mobile-lang-inner{display:flex;align-items:center;gap:10px}
-.mobile-lang-label{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:700;flex-shrink:0}
-.mobile-lang-toggle{display:flex;background:#0a0a0a;border:1px solid #222;border-radius:var(--r8);overflow:hidden;flex:1}
-.mobile-lang-opt{flex:1;padding:7px 8px;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center}
-.mobile-lang-opt.active{background:var(--lime);color:var(--black)}
+/* Mobile lang bar — REMOVED, lang toggle is inside sidebar only */
 
 /* PAGES */
 .content{flex:1;padding:32px}
@@ -346,10 +340,9 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   .main{margin-left:0}
   .ham{display:flex}
   .btn-add-main{display:none}
-  .content{padding:20px 16px 100px}
+  .content{padding:20px 16px 80px}
   .topbar{padding:0 16px;height:56px}
   .mobile-nav{display:block}
-  .mobile-lang-bar{display:block}
   .dash-hero{padding:24px;grid-template-columns:1fr}
   .dash-hero::before{font-size:60px;opacity:0.6}
   .hero-right{display:none}
@@ -362,7 +355,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   .modal-title{font-size:20px}
   .page-controls{flex-direction:column;align-items:stretch}
   .chips{flex-wrap:wrap}
-  .toast{bottom:108px}
+  .toast{bottom:72px}
   .person-card-footer{gap:6px}
 }
 @media(max-width:400px){
@@ -576,16 +569,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
     </div>
   </nav>
 
-  <!-- MOBILE LANGUAGE BAR (below nav) -->
-  <div class="mobile-lang-bar">
-    <div class="mobile-lang-inner">
-      <span class="mobile-lang-label">Lang</span>
-      <div class="mobile-lang-toggle">
-        <button class="mobile-lang-opt active" id="mlo-en" onclick="setLang('en')">English</button>
-        <button class="mobile-lang-opt" id="mlo-hi" onclick="setLang('hi')">हिन्दी</button>
-      </div>
-    </div>
-  </div>
+  <!-- Language toggle is inside the sidebar (hamburger menu) -->
 
 </div>
 
@@ -862,12 +846,9 @@ function setLang(l) {
   _lang=l;
   document.querySelectorAll('.en').forEach(e=>e.style.display=l==='en'?'':'none');
   document.querySelectorAll('.hi').forEach(e=>e.style.display=l==='hi'?'':'none');
-  // Sidebar toggles
+  // Sidebar lang toggles (desktop + mobile — same sidebar)
   document.getElementById('lo-en').classList.toggle('active',l==='en');
   document.getElementById('lo-hi').classList.toggle('active',l==='hi');
-  // Mobile toggles
-  document.getElementById('mlo-en').classList.toggle('active',l==='en');
-  document.getElementById('mlo-hi').classList.toggle('active',l==='hi');
   renderAll();
 }
 
