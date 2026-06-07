@@ -29,7 +29,7 @@
 html{font-size:16px}
 body{font-family:var(--sans);background:var(--black);color:var(--black);min-height:100vh;overflow-x:hidden}
 
-/* ── LOADING ── */
+/* LOADING */
 #loading{position:fixed;inset:0;background:var(--black);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.5s}
 #loading.out{opacity:0;pointer-events:none}
 .load-wordmark{font-family:var(--mono);font-size:clamp(48px,12vw,96px);font-weight:700;color:var(--white);letter-spacing:-4px;line-height:1}
@@ -40,10 +40,10 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .load-bar-fill{height:100%;width:0%;background:var(--lime);border-radius:1px;animation:loadFill 1.5s ease forwards}
 @keyframes loadFill{to{width:100%}}
 
-/* ── SHELL ── */
+/* SHELL */
 .shell{display:flex;min-height:100vh}
 
-/* ── SIDEBAR ── */
+/* SIDEBAR */
 .sidebar{width:var(--sidebar);background:var(--black);border-right:1px solid #1e1e1e;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200;transition:transform 0.3s cubic-bezier(.4,0,.2,1);overflow-y:auto}
 .sidebar-top{padding:28px 24px 20px;border-bottom:1px solid #1e1e1e}
 .wordmark{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--white);letter-spacing:-1.5px;line-height:1}
@@ -64,14 +64,15 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .st-amount{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--red);letter-spacing:-1px;line-height:1}
 .st-amount.zero{color:var(--green);font-size:22px}
 .sidebar-lang{padding:16px 24px;border-top:1px solid #1e1e1e}
+.sidebar-lang-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:8px;font-weight:600}
 .lang-toggle{display:flex;background:#111;border:1px solid #222;border-radius:var(--r8);overflow:hidden;width:100%}
-.lang-opt{flex:1;padding:8px;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s}
+.lang-opt{flex:1;padding:9px 8px;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center}
 .lang-opt.active{background:var(--lime);color:var(--black)}
 
-/* ── MAIN ── */
+/* MAIN */
 .main{flex:1;margin-left:var(--sidebar);background:var(--off);min-height:100vh;display:flex;flex-direction:column}
 
-/* ── TOPBAR ── */
+/* TOPBAR */
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:16px}
 .ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:6px;cursor:pointer}
@@ -81,22 +82,30 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .btn-add-main{display:flex;align-items:center;gap:8px;background:var(--black);color:var(--lime);border:none;border-radius:var(--r8);padding:10px 20px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:all 0.15s}
 .btn-add-main:hover{background:#222}
 
-/* ── MOBILE NAV ── */
-.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--black);border-top:1px solid #1e1e1e;height:60px;z-index:200}
-.mnav-inner{display:flex;height:100%}
-.mnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:none;color:#444;font-family:var(--sans);font-size:10px;font-weight:600;cursor:pointer;transition:color 0.15s;padding:6px 4px}
+/* MOBILE NAV */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--black);border-top:1px solid #1e1e1e;z-index:200}
+.mnav-inner{display:flex;height:60px}
+.mnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border:none;background:none;color:#444;font-family:var(--sans);font-size:10px;font-weight:600;cursor:pointer;transition:color 0.15s;padding:6px 2px}
 .mnav-item.active{color:var(--lime)}
-.mnav-item .mi{font-size:20px;line-height:1}
-.fab-mobile{background:var(--lime);color:var(--black)!important;border-radius:50%;width:48px;height:48px;margin:0 auto;align-self:center}
-.fab-mobile .mi{font-size:24px!important}
+.mnav-item .mi{font-size:19px;line-height:1}
+.fab-mobile{background:var(--lime);color:var(--black)!important;border-radius:50%;width:46px;height:46px;margin:0 auto;align-self:center;flex-shrink:0}
+.fab-mobile .mi{font-size:22px!important;color:var(--black)!important}
 
-/* ── PAGES ── */
+/* Mobile lang bar — shown only on mobile below nav */
+.mobile-lang-bar{display:none;background:#111;border-top:1px solid #1e1e1e;padding:8px 16px}
+.mobile-lang-inner{display:flex;align-items:center;gap:10px}
+.mobile-lang-label{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:700;flex-shrink:0}
+.mobile-lang-toggle{display:flex;background:#0a0a0a;border:1px solid #222;border-radius:var(--r8);overflow:hidden;flex:1}
+.mobile-lang-opt{flex:1;padding:7px 8px;border:none;background:transparent;color:#555;font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all 0.15s;text-align:center}
+.mobile-lang-opt.active{background:var(--lime);color:var(--black)}
+
+/* PAGES */
 .content{flex:1;padding:32px}
 .page{display:none;animation:fadeUp 0.22s ease}
 .page.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-/* ── DASHBOARD ── */
+/* DASHBOARD */
 .dash-hero{background:var(--black);border-radius:var(--r16);padding:40px 40px 32px;margin-bottom:24px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;overflow:hidden;position:relative}
 .dash-hero::before{content:'HISAAB';position:absolute;font-family:var(--mono);font-size:140px;font-weight:700;color:#111;right:-20px;top:-20px;line-height:1;letter-spacing:-6px;pointer-events:none;user-select:none}
 .hero-left{position:relative;z-index:1}
@@ -110,7 +119,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .hstat-num{font-family:var(--mono);font-size:32px;font-weight:700;color:var(--white);letter-spacing:-1px;line-height:1}
 .hstat-label{font-size:11px;color:#555;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;font-weight:600}
 
-/* ── STATS ROW ── */
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
 .stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r12);padding:20px;transition:border-color 0.15s}
 .stat-card:hover{border-color:var(--black)}
@@ -119,18 +128,19 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .stat-card.red .sc-num{color:var(--red)}
 .stat-card.green .sc-num{color:var(--green)}
 
-/* ── SECTION HEADER ── */
+/* SECTION HEADER */
 .sec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
 .sec-title{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--black);letter-spacing:2px;text-transform:uppercase}
 .sec-link{font-size:12px;font-weight:700;color:var(--muted);background:none;border:none;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:color 0.15s}
 .sec-link:hover{color:var(--black)}
 
-/* ── ENTRY ROW ── */
+/* ENTRY ROW */
 .entry-list{display:flex;flex-direction:column;gap:2px}
 .entry-row{background:var(--white);border:1px solid var(--border);border-radius:var(--r8);padding:14px 18px;display:flex;align-items:center;gap:14px;transition:border-color 0.15s}
 .entry-row:hover{border-color:var(--black)}
 .entry-row.unpaid{border-left:3px solid var(--red)}
 .entry-row.paid{border-left:3px solid var(--green)}
+.entry-row.partial{border-left:3px solid #f5a000}
 .av{width:42px;height:42px;border-radius:50%;background:var(--off);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:700;color:var(--black);flex-shrink:0;text-transform:uppercase}
 .entry-info{flex:1;min-width:0}
 .entry-name{font-size:15px;font-weight:700;color:var(--black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -138,12 +148,13 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .entry-right{text-align:right;flex-shrink:0}
 .entry-amt{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--red);letter-spacing:-0.5px}
 .entry-amt.paid{color:var(--green)}
+.entry-amt.partial{color:#f5a000}
 .drink-pill{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:var(--r4);margin-top:4px}
 .pill-chai{background:#fff3e0;color:#c06000}
 .pill-coffee{background:#1a0a00;color:#c09060}
 .pill-special{background:#f0e8ff;color:#6020a0}
 
-/* ── PEOPLE PAGE ── */
+/* PEOPLE */
 .page-controls{display:flex;gap:12px;margin-bottom:20px;align-items:center;flex-wrap:wrap}
 .search-box{flex:1;min-width:200px;position:relative}
 .search-box .si{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--muted);pointer-events:none}
@@ -155,8 +166,8 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .chip:hover{border-color:var(--black);color:var(--black)}
 .chip.active{background:var(--black);color:var(--lime);border-color:var(--black)}
 
-/* ── PERSON CARD ── */
-.person-grid{display:flex;flex-direction:column;gap:2px}
+/* PERSON CARD */
+.person-grid{display:flex;flex-direction:column;gap:8px}
 .person-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r12);overflow:hidden;transition:border-color 0.15s}
 .person-card:hover{border-color:var(--black)}
 .person-card-top{padding:18px 20px;display:flex;align-items:center;gap:14px}
@@ -167,6 +178,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .person-due-col{text-align:right;flex-shrink:0}
 .person-due{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--red);letter-spacing:-1px;line-height:1}
 .person-due.clear{color:var(--green);font-size:16px;font-weight:600;letter-spacing:0}
+.person-due.partial-due{color:#f5a000}
 .person-cups{font-size:12px;color:var(--muted);margin-top:3px}
 .person-card-footer{padding:10px 20px;background:var(--off);border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .person-history{display:none;border-top:1px solid var(--border)}
@@ -177,8 +189,15 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .hist-price{font-family:var(--mono);font-size:16px;font-weight:700}
 .hist-price.owed{color:var(--red)}
 .hist-price.paid{color:var(--green)}
+.hist-price.partial{color:#f5a000}
 
-/* ── COMPANIES ── */
+/* PARTIAL PAYMENT PROGRESS BAR */
+.partial-bar-wrap{padding:0 20px 12px;background:var(--off)}
+.partial-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;font-family:var(--mono)}
+.partial-bar-track{height:6px;background:#e0dfd8;border-radius:3px;overflow:hidden}
+.partial-bar-fill{height:100%;background:var(--green);border-radius:3px;transition:width 0.4s ease}
+
+/* COMPANIES */
 .companies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
 .company-card{background:var(--black);border-radius:var(--r16);padding:28px;position:relative;overflow:hidden;transition:transform 0.15s}
 .company-card:hover{transform:translateY(-2px)}
@@ -206,7 +225,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .co-toggle-btn{width:100%;background:#111;border:none;color:#444;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:9px 14px;border-radius:var(--r8);margin-top:10px;cursor:pointer;transition:color 0.15s;position:relative;z-index:1}
 .co-toggle-btn:hover{color:var(--white)}
 
-/* ── PRICES ── */
+/* PRICES */
 .prices-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 .price-card{border:1px solid var(--border);border-radius:var(--r16);overflow:hidden;background:var(--white)}
 .pc-head{padding:24px 24px 18px;background:var(--black);position:relative}
@@ -223,7 +242,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .btn-save-price{background:var(--lime);color:var(--black);border:none;border-radius:var(--r8);padding:10px 20px;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:0.5px;cursor:pointer;transition:background 0.15s}
 .btn-save-price:hover{background:var(--lime-d)}
 
-/* ── BUTTONS ── */
+/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:var(--r8);padding:9px 16px;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:0.3px;cursor:pointer;transition:all 0.15s}
 .btn:active{transform:scale(0.97)}
 .btn-sm{padding:7px 14px;font-size:12px}
@@ -235,15 +254,18 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .btn-success:hover{background:var(--green-d)}
 .btn-danger{background:var(--red);color:#fff}
 .btn-danger:hover{background:var(--red-d)}
+.btn-orange{background:#f5a000;color:#fff}
+.btn-orange:hover{background:#d48800}
 .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border)}
 .btn-ghost:hover{border-color:var(--black);color:var(--black)}
 .btn-full{width:100%;background:var(--black);color:var(--lime);border:none;border-radius:var(--r12);padding:16px;font-family:var(--mono);font-size:16px;font-weight:700;cursor:pointer;letter-spacing:0.5px;transition:all 0.15s}
 .btn-full:hover{background:#222}
 .btn-full:active{transform:scale(0.99)}
+.btn-full.orange-full{background:#f5a000;color:#fff}
 .btn-cancel{width:100%;background:none;border:none;padding:12px;font-family:var(--sans);font-size:14px;font-weight:600;color:var(--muted);margin-top:8px;cursor:pointer;transition:color 0.15s}
 .btn-cancel:hover{color:var(--black)}
 
-/* ── MODALS ── */
+/* MODALS */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px)}
 .modal-bg.open{display:flex}
 .modal{background:var(--white);border-radius:var(--r16) var(--r16) 0 0;padding:8px 28px 40px;width:100%;max-width:520px;animation:mUp 0.26s cubic-bezier(.4,0,.2,1);max-height:94vh;overflow-y:auto}
@@ -276,6 +298,21 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .total-strip{background:var(--black);border-radius:var(--r8);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .total-lbl{font-size:12px;color:#666;letter-spacing:2px;text-transform:uppercase;font-weight:700}
 .total-amt{font-family:var(--mono);font-size:28px;font-weight:700;color:var(--lime);letter-spacing:-1px}
+
+/* PARTIAL PAYMENT MODAL STYLES */
+.partial-summary{background:var(--off);border:1px solid var(--border);border-radius:var(--r12);padding:18px 20px;margin-bottom:20px}
+.partial-person-name{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--black);margin-bottom:4px}
+.partial-total-owed{font-size:13px;color:var(--muted);margin-bottom:12px}
+.partial-total-owed strong{font-family:var(--mono);font-size:18px;color:var(--red);font-weight:700}
+.partial-remaining-preview{background:var(--black);border-radius:var(--r8);padding:14px 16px;margin-top:14px;display:flex;justify-content:space-between;align-items:center}
+.prl{font-size:11px;color:#666;letter-spacing:1.5px;text-transform:uppercase;font-weight:700}
+.prv{font-family:var(--mono);font-size:20px;font-weight:700}
+.prv.orange{color:#f5a000}
+.prv.green{color:var(--green)}
+.amount-input-wrap{position:relative}
+.amount-input-wrap .rupee{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:18px;font-weight:700;color:var(--black);pointer-events:none}
+.amount-input-wrap .form-input{padding-left:32px;font-family:var(--mono);font-size:20px;font-weight:700}
+
 .confirm-wrap{text-align:center;padding:8px 0}
 .confirm-icon{font-size:44px;margin-bottom:14px}
 .confirm-msg{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--black);margin-bottom:8px;letter-spacing:-0.5px}
@@ -283,20 +320,20 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
 .confirm-amt{font-family:var(--mono);font-size:40px;font-weight:700;color:var(--red);letter-spacing:-2px;margin:10px 0;display:block}
 .confirm-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-/* ── TOAST ── */
+/* TOAST */
 .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--lime);padding:12px 24px;border-radius:var(--r8);font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:0.5px;z-index:9999;opacity:0;pointer-events:none;white-space:nowrap;border:1px solid #222;transition:all 0.3s cubic-bezier(.4,0,.2,1);max-width:calc(100vw - 40px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* ── EMPTY ── */
+/* EMPTY */
 .empty{text-align:center;padding:60px 20px;border:1px dashed var(--border);border-radius:var(--r12);background:var(--white)}
 .empty-icon{font-size:48px;margin-bottom:16px;opacity:0.5}
 .empty-title{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--black);margin-bottom:8px;letter-spacing:-0.5px}
 .empty-sub{font-size:14px;color:var(--muted);line-height:1.7}
 
-/* ── SIDEBAR OVERLAY ── */
+/* SIDEBAR OVERLAY */
 .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:150;backdrop-filter:blur(2px)}
 
-/* ── RESPONSIVE ── */
+/* RESPONSIVE */
 @media(max-width:900px){
   :root{--sidebar:220px}
   .stats-row{grid-template-columns:repeat(2,1fr)}
@@ -309,9 +346,10 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   .main{margin-left:0}
   .ham{display:flex}
   .btn-add-main{display:none}
-  .content{padding:20px 16px 80px}
+  .content{padding:20px 16px 100px}
   .topbar{padding:0 16px;height:56px}
   .mobile-nav{display:block}
+  .mobile-lang-bar{display:block}
   .dash-hero{padding:24px;grid-template-columns:1fr}
   .dash-hero::before{font-size:60px;opacity:0.6}
   .hero-right{display:none}
@@ -324,18 +362,18 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   .modal-title{font-size:20px}
   .page-controls{flex-direction:column;align-items:stretch}
   .chips{flex-wrap:wrap}
-  .toast{bottom:72px}
+  .toast{bottom:108px}
+  .person-card-footer{gap:6px}
 }
 @media(max-width:400px){
   .drink-grid{gap:6px}
   .dc-name{font-size:11px}
-  .stats-row{gap:6px}
+  .stats-stats{gap:6px}
 }
 </style>
 </head>
 <body>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="load-wordmark">HIS<span>A</span>AB</div>
   <div class="load-sub">हिसाब — Chai Tracker</div>
@@ -380,9 +418,11 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
       <div class="st-label">TOTAL UDHARI</div>
       <div class="st-amount" id="sb-total">₹0</div>
     </div>
+    <!-- LANGUAGE TOGGLE IN SIDEBAR -->
     <div class="sidebar-lang">
+      <div class="sidebar-lang-label">Language / भाषा</div>
       <div class="lang-toggle">
-        <button class="lang-opt active" id="lo-en" onclick="setLang('en')">EN</button>
+        <button class="lang-opt active" id="lo-en" onclick="setLang('en')">English</button>
         <button class="lang-opt" id="lo-hi" onclick="setLang('hi')">हिन्दी</button>
       </div>
     </div>
@@ -510,7 +550,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
     </div>
   </div>
 
-  <!-- MOBILE NAV -->
+  <!-- MOBILE BOTTOM NAV -->
   <nav class="mobile-nav">
     <div class="mnav-inner">
       <button class="mnav-item active" data-page="dash" onclick="goPage('dash',this)">
@@ -523,11 +563,11 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
       </button>
       <button class="mnav-item fab-mobile" onclick="openAddEntry(null)">
         <span class="mi">+</span>
-        <span class="en">Add</span><span class="hi" style="display:none">जोड़ो</span>
+        <span class="en" style="font-size:9px">ADD</span><span class="hi" style="display:none;font-size:9px">जोड़ो</span>
       </button>
       <button class="mnav-item" data-page="companies" onclick="goPage('companies',this)">
         <span class="mi">🏢</span>
-        <span class="en">Companies</span><span class="hi" style="display:none">कंपनियाँ</span>
+        <span class="en">Office</span><span class="hi" style="display:none">दफ्तर</span>
       </button>
       <button class="mnav-item" data-page="prices" onclick="goPage('prices',this)">
         <span class="mi">💰</span>
@@ -536,9 +576,20 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
     </div>
   </nav>
 
+  <!-- MOBILE LANGUAGE BAR (below nav) -->
+  <div class="mobile-lang-bar">
+    <div class="mobile-lang-inner">
+      <span class="mobile-lang-label">Lang</span>
+      <div class="mobile-lang-toggle">
+        <button class="mobile-lang-opt active" id="mlo-en" onclick="setLang('en')">English</button>
+        <button class="mobile-lang-opt" id="mlo-hi" onclick="setLang('hi')">हिन्दी</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- MODALS -->
+<!-- ══ MODALS ══ -->
 
 <!-- ADD ENTRY -->
 <div class="modal-bg" id="modal-entry">
@@ -632,7 +683,55 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   </div>
 </div>
 
-<!-- SETTLE -->
+<!-- PARTIAL PAYMENT MODAL -->
+<div class="modal-bg" id="modal-partial">
+  <div class="modal">
+    <div class="modal-pill"></div>
+    <div class="modal-title"><span class="en">💸 PARTIAL PAYMENT</span><span class="hi" style="display:none">💸 आधा भुगतान</span></div>
+
+    <div class="partial-summary">
+      <div class="partial-person-name" id="pp-name">—</div>
+      <div class="partial-total-owed en">Total owed: <strong id="pp-total">₹0</strong></div>
+      <div class="partial-total-owed hi" style="display:none">कुल बकाया: <strong id="pp-total-hi">₹0</strong></div>
+
+      <div class="partial-remaining-preview">
+        <div>
+          <div class="prl en">REMAINING AFTER</div>
+          <div class="prl hi" style="display:none">बाद में बकाया</div>
+        </div>
+        <div class="prv orange" id="pp-remaining">₹0</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-lbl"><span class="en">AMOUNT PAID NOW</span><span class="hi" style="display:none">अभी कितना मिला?</span></label>
+      <div class="amount-input-wrap">
+        <span class="rupee">₹</span>
+        <input class="form-input" type="number" id="partial-amount" placeholder="0" min="1" oninput="updatePartialPreview()"/>
+      </div>
+    </div>
+
+    <!-- Quick % buttons -->
+    <div class="form-group">
+      <label class="form-lbl"><span class="en">QUICK SELECT</span><span class="hi" style="display:none">जल्दी चुनो</span></label>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="setPartialPct(25)">25%</button>
+        <button class="btn btn-ghost btn-sm" onclick="setPartialPct(50)">50%</button>
+        <button class="btn btn-ghost btn-sm" onclick="setPartialPct(75)">75%</button>
+        <button class="btn btn-ghost btn-sm" onclick="setPartialPct(100)">
+          <span class="en">FULL</span><span class="hi" style="display:none">पूरा</span>
+        </button>
+      </div>
+    </div>
+
+    <button class="btn-full orange-full" onclick="submitPartialPayment()">
+      <span class="en">RECORD PAYMENT</span><span class="hi" style="display:none">भुगतान दर्ज करो</span>
+    </button>
+    <button class="btn-cancel" onclick="closeModal('modal-partial')">Cancel / रद्द</button>
+  </div>
+</div>
+
+<!-- FULL SETTLE CONFIRM -->
 <div class="modal-bg" id="modal-settle">
   <div class="modal">
     <div class="modal-pill"></div>
@@ -649,7 +748,7 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   </div>
 </div>
 
-<!-- DELETE -->
+<!-- DELETE CONFIRM -->
 <div class="modal-bg" id="modal-delete">
   <div class="modal">
     <div class="modal-pill"></div>
@@ -665,16 +764,14 @@ body{font-family:var(--sans);background:var(--black);color:var(--black);min-heig
   </div>
 </div>
 
-<!-- ════ FIREBASE SDK ════ -->
+<!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
 <script>
 'use strict';
 
-/* ══════════════════════════════════════════════
-   FIREBASE CONFIG
-   ══════════════════════════════════════════════ */
+/* ══ FIREBASE CONFIG ══ */
 const firebaseConfig = {
   apiKey:            "AIzaSyB8WsrueL1lCVeTCQaPSXnz2JxN_IJh4ZY",
   authDomain:        "hisaab-8412a.firebaseapp.com",
@@ -684,38 +781,22 @@ const firebaseConfig = {
   appId:             "1:601045540699:web:767e1c4cf6143cada8047e",
   measurementId:     "G-G5G239S16Y"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/* ══════════════════════════════════════════════
-   LOCAL STATE (synced from Firestore)
-   ══════════════════════════════════════════════ */
-const DB = {
-  companies: [],
-  people:    [],
-  entries:   [],
-  prices:    { chai:10, coffee:15, special:20 },
-};
+/* ══ LOCAL STATE ══ */
+const DB = { companies:[], people:[], entries:[], prices:{chai:10,coffee:15,special:20} };
+let _lang='en', _filter='all', _curDrink='chai', _eQty=1, _payer='personal';
+let _settleTarget=null, _deleteTarget=null, _partialTarget=null;
 
-let _lang         = 'en';
-let _filter       = 'all';
-let _curDrink     = 'chai';
-let _eQty         = 1;
-let _payer        = 'personal';
-let _settleTarget = null;
-let _deleteTarget = null;
-
-/* ══════════════════════════════════════════════
-   UTILS
-   ══════════════════════════════════════════════ */
+/* ══ UTILS ══ */
 const today    = () => new Date().toISOString().slice(0,10);
 const initials = n  => n.trim().split(' ').filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase();
 
 function fmtDate(s) {
-  if (s === today()) return _lang==='en'?'Today':'आज';
-  const y = new Date(); y.setDate(y.getDate()-1);
-  if (s === y.toISOString().slice(0,10)) return _lang==='en'?'Yesterday':'कल';
+  if (s===today()) return _lang==='en'?'Today':'आज';
+  const y=new Date(); y.setDate(y.getDate()-1);
+  if (s===y.toISOString().slice(0,10)) return _lang==='en'?'Yesterday':'कल';
   return new Date(s+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'});
 }
 
@@ -724,239 +805,210 @@ const drinkPillCls = d => ({chai:'pill-chai',coffee:'pill-coffee',special:'pill-
 const getPerson    = id => DB.people.find(p=>p.id===id);
 const getCompany   = id => DB.companies.find(c=>c.id===id);
 
-const personUdhari = id =>
-  DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.amount,0);
+/* Person udhari = sum of (amount - paidAmount) for unpaid/partial entries */
+function personUdhari(id) {
+  return DB.entries
+    .filter(e=>e.personId===id&&!e.paid)
+    .reduce((s,e)=>s+(e.amount-(e.paidAmount||0)),0);
+}
 
-const personTotalCups = id =>
-  DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.qty,0);
+function personTotalCups(id) {
+  return DB.entries.filter(e=>e.personId===id&&!e.paid).reduce((s,e)=>s+e.qty,0);
+}
 
-const companyUdhari = id => {
-  const pids = DB.people.filter(p=>p.companyId===id).map(p=>p.id);
+function companyUdhari(id) {
+  const pids=DB.people.filter(p=>p.companyId===id).map(p=>p.id);
   return DB.entries
     .filter(e=>(pids.includes(e.personId)||e.companyId===id)&&!e.paid)
-    .reduce((s,e)=>s+e.amount,0);
-};
+    .reduce((s,e)=>s+(e.amount-(e.paidAmount||0)),0);
+}
 
-/* ══════════════════════════════════════════════
-   FIREBASE LOAD — Real-time listeners
-   ══════════════════════════════════════════════ */
+/* ══ FIREBASE INIT ══ */
 function initFirebase() {
-  setLoadStatus('Loading companies...');
-
-  // Listen companies
-  db.collection('companies').orderBy('createdAt','asc').onSnapshot(snap => {
-    DB.companies = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
+  setLoadStatus('Loading data...');
+  db.collection('companies').orderBy('createdAt','asc').onSnapshot(snap=>{
+    DB.companies=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll();
   });
-
-  // Listen people
-  db.collection('people').orderBy('createdAt','asc').onSnapshot(snap => {
-    DB.people = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
+  db.collection('people').orderBy('createdAt','asc').onSnapshot(snap=>{
+    DB.people=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll();
   });
-
-  // Listen entries
-  db.collection('entries').orderBy('date','desc').onSnapshot(snap => {
-    DB.entries = snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderAll();
+  db.collection('entries').orderBy('date','desc').onSnapshot(snap=>{
+    DB.entries=snap.docs.map(d=>({id:d.id,...d.data()})); renderAll();
   });
-
-  // Load prices once (and listen for changes)
-  db.collection('config').doc('prices').onSnapshot(doc => {
-    if (doc.exists) {
-      Object.assign(DB.prices, doc.data());
-      // Update price display in modal
+  db.collection('config').doc('prices').onSnapshot(doc=>{
+    if(doc.exists){
+      Object.assign(DB.prices,doc.data());
       ['chai','coffee','special'].forEach(k=>{
-        const dp = document.getElementById('dp-'+k);
-        if (dp) dp.textContent = '₹'+DB.prices[k];
+        const dp=document.getElementById('dp-'+k);
+        if(dp) dp.textContent='₹'+DB.prices[k];
       });
-      renderPrices();
-      updateTotal();
+      renderPrices(); updateTotal();
     }
   });
-
   setLoadStatus('Ready!');
   hideLoading();
 }
 
-function setLoadStatus(msg) {
-  const el = document.getElementById('load-status');
-  if (el) el.textContent = msg;
-}
-
-function hideLoading() {
+function setLoadStatus(m){const el=document.getElementById('load-status');if(el)el.textContent=m;}
+function hideLoading(){
   setTimeout(()=>{
-    const ls = document.getElementById('loading');
-    if (ls) { ls.classList.add('out'); setTimeout(()=>ls.remove(),500); }
-  }, 1000);
+    const ls=document.getElementById('loading');
+    if(ls){ls.classList.add('out');setTimeout(()=>ls.remove(),500);}
+  },1000);
 }
 
-/* ══════════════════════════════════════════════
-   LANGUAGE
-   ══════════════════════════════════════════════ */
+/* ══ LANGUAGE ══ */
 function setLang(l) {
-  _lang = l;
+  _lang=l;
   document.querySelectorAll('.en').forEach(e=>e.style.display=l==='en'?'':'none');
   document.querySelectorAll('.hi').forEach(e=>e.style.display=l==='hi'?'':'none');
+  // Sidebar toggles
   document.getElementById('lo-en').classList.toggle('active',l==='en');
   document.getElementById('lo-hi').classList.toggle('active',l==='hi');
+  // Mobile toggles
+  document.getElementById('mlo-en').classList.toggle('active',l==='en');
+  document.getElementById('mlo-hi').classList.toggle('active',l==='hi');
   renderAll();
 }
 
-/* ══════════════════════════════════════════════
-   NAVIGATION
-   ══════════════════════════════════════════════ */
-const PAGE_NAMES    = {dash:'Dashboard',people:'People',companies:'Companies',prices:'Prices'};
-const PAGE_NAMES_HI = {dash:'डैशबोर्ड',people:'लोग',companies:'कंपनियाँ',prices:'कीमत'};
+/* ══ NAVIGATION ══ */
+const PN={'dash':'Dashboard','people':'People','companies':'Companies','prices':'Prices'};
+const PH={'dash':'डैशबोर्ड','people':'लोग','companies':'कंपनियाँ','prices':'कीमत'};
 
-function goPage(pid, btn) {
+function goPage(pid,btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item,.mnav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+pid).classList.add('active');
   document.querySelectorAll(`[data-page="${pid}"]`).forEach(b=>b.classList.add('active'));
-  document.getElementById('page-heading').textContent =
-    _lang==='en'?(PAGE_NAMES[pid]||pid):(PAGE_NAMES_HI[pid]||pid);
-  closeSidebar();
-  renderAll();
+  document.getElementById('page-heading').textContent=_lang==='en'?(PN[pid]||pid):(PH[pid]||pid);
+  closeSidebar(); renderAll();
 }
 
-function toggleSidebar() {
+function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sOverlay').classList.toggle('open');
 }
-function closeSidebar() {
+function closeSidebar(){
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sOverlay').classList.remove('open');
 }
 
-/* ══════════════════════════════════════════════
-   RENDER ALL
-   ══════════════════════════════════════════════ */
-function renderAll() {
-  renderDash();
-  renderPeople();
-  renderCompanies();
-  renderPrices();
-  updateBadges();
-  updateSidebarTotal();
+/* ══ RENDER ALL ══ */
+function renderAll(){
+  renderDash(); renderPeople(); renderCompanies(); renderPrices();
+  updateBadges(); updateSidebarTotal();
 }
 
-function updateBadges() {
-  document.getElementById('nb-people').textContent    = DB.people.length;
-  document.getElementById('nb-companies').textContent = DB.companies.length;
-  const t = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
-  document.getElementById('nb-dash').textContent = t?'₹'+t:'✓';
+function updateBadges(){
+  document.getElementById('nb-people').textContent=DB.people.length;
+  document.getElementById('nb-companies').textContent=DB.companies.length;
+  const t=DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+(e.amount-(e.paidAmount||0)),0);
+  document.getElementById('nb-dash').textContent=t?'₹'+t:'✓';
 }
 
-function updateSidebarTotal() {
-  const t  = DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+e.amount,0);
-  const el = document.getElementById('sb-total');
-  el.textContent = '₹'+t;
-  el.className   = 'st-amount'+(t===0?' zero':'');
+function updateSidebarTotal(){
+  const t=DB.entries.filter(e=>!e.paid).reduce((s,e)=>s+(e.amount-(e.paidAmount||0)),0);
+  const el=document.getElementById('sb-total');
+  el.textContent='₹'+t;
+  el.className='st-amount'+(t===0?' zero':'');
 }
 
-/* ══════════════════════════════════════════════
-   DASHBOARD
-   ══════════════════════════════════════════════ */
-function renderDash() {
-  const unpaid    = DB.entries.filter(e=>!e.paid);
-  const totalUdh  = unpaid.reduce((s,e)=>s+e.amount,0);
-  const unpaidPpl = new Set(unpaid.map(e=>e.personId)).size;
-  const todayCups = DB.entries.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
-  const weekAgo   = new Date(); weekAgo.setDate(weekAgo.getDate()-6);
-  const weekStr   = weekAgo.toISOString().slice(0,10);
-  const weekTotal = DB.entries.filter(e=>e.date>=weekStr).reduce((s,e)=>s+e.amount,0);
+/* ══ DASHBOARD ══ */
+function renderDash(){
+  const unpaid=DB.entries.filter(e=>!e.paid);
+  const totalUdh=unpaid.reduce((s,e)=>s+(e.amount-(e.paidAmount||0)),0);
+  const unpaidPpl=new Set(unpaid.map(e=>e.personId)).size;
+  const todayCups=DB.entries.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+  const weekAgo=new Date(); weekAgo.setDate(weekAgo.getDate()-6);
+  const weekStr=weekAgo.toISOString().slice(0,10);
+  const weekTotal=DB.entries.filter(e=>e.date>=weekStr).reduce((s,e)=>s+e.amount,0);
 
-  const hTot = document.getElementById('h-total');
-  hTot.textContent = '₹'+totalUdh;
-  hTot.className   = 'hero-amount'+(totalUdh===0?' zero':'');
-  document.getElementById('h-meta').textContent =
-    (_lang==='en'?'from ':'')+unpaidPpl+(_lang==='en'?' people':' लोग');
-  document.getElementById('h-today').textContent = todayCups;
-  document.getElementById('h-week').textContent  = '₹'+weekTotal;
-  document.getElementById('h-tag').textContent   =
-    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'}).toUpperCase();
-  document.getElementById('s-customers').textContent  = DB.people.length;
-  document.getElementById('s-unpaid').textContent     = unpaidPpl;
-  document.getElementById('s-companies').textContent  = DB.companies.length;
-  document.getElementById('s-today-cups').textContent = todayCups;
+  const hTot=document.getElementById('h-total');
+  hTot.textContent='₹'+totalUdh;
+  hTot.className='hero-amount'+(totalUdh===0?' zero':'');
+  document.getElementById('h-meta').textContent=(_lang==='en'?'from ':'')+unpaidPpl+(_lang==='en'?' people':' लोग');
+  document.getElementById('h-today').textContent=todayCups;
+  document.getElementById('h-week').textContent='₹'+weekTotal;
+  document.getElementById('h-tag').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'}).toUpperCase();
+  document.getElementById('s-customers').textContent=DB.people.length;
+  document.getElementById('s-unpaid').textContent=unpaidPpl;
+  document.getElementById('s-companies').textContent=DB.companies.length;
+  document.getElementById('s-today-cups').textContent=todayCups;
 
-  const recent = [...DB.entries]
-    .sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id))
-    .slice(0,8);
-
-  const el = document.getElementById('dash-recent');
-  if (!recent.length) {
-    el.innerHTML = `<div class="empty">
-      <div class="empty-icon">📋</div>
-      <div class="empty-title">NO ENTRIES YET</div>
-      <div class="empty-sub">${_lang==='en'?'Tap "+ ADD CHAI" to log your first entry.':'ऊपर "+ ADD CHAI" दबाओ।'}</div>
-    </div>`;
+  const recent=[...DB.entries].sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id)).slice(0,8);
+  const el=document.getElementById('dash-recent');
+  if(!recent.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div><div class="empty-title">NO ENTRIES YET</div><div class="empty-sub">${_lang==='en'?'Tap "+ ADD CHAI" to log your first entry.':'ऊपर "+ ADD CHAI" दबाओ।'}</div></div>`;
     return;
   }
-  el.innerHTML = recent.map(e=>{
-    const p  = getPerson(e.personId);
-    if (!p) return '';
-    const co = getCompany(p.companyId);
-    return `<div class="entry-row ${e.paid?'paid':'unpaid'}">
+  el.innerHTML=recent.map(e=>{
+    const p=getPerson(e.personId); if(!p) return '';
+    const co=getCompany(p.companyId);
+    const remaining=e.amount-(e.paidAmount||0);
+    const isPartial=(e.paidAmount||0)>0&&!e.paid;
+    const rowCls=e.paid?'paid':isPartial?'partial':'unpaid';
+    const amtCls=e.paid?'paid':isPartial?'partial':'';
+    const displayAmt=e.paid?'₹'+e.amount:isPartial?`₹${remaining} left`:'₹'+e.amount;
+    return `<div class="entry-row ${rowCls}">
       <div class="av">${initials(p.name)}</div>
       <div class="entry-info">
         <div class="entry-name">${p.name}</div>
-        <div class="entry-meta">${fmtDate(e.date)}${co?' · '+co.name:''}</div>
+        <div class="entry-meta">${fmtDate(e.date)}${co?' · '+co.name:''}${isPartial?` · paid ₹${e.paidAmount||0}`:''}</div>
       </div>
       <div class="entry-right">
-        <div class="entry-amt ${e.paid?'paid':''}">₹${e.amount}</div>
+        <div class="entry-amt ${amtCls}">${displayAmt}</div>
         <div class="drink-pill ${drinkPillCls(e.drink)}">${drinkEmoji(e.drink)} ${e.drink.toUpperCase()} ×${e.qty}</div>
       </div>
     </div>`;
   }).join('');
 }
 
-/* ══════════════════════════════════════════════
-   PEOPLE
-   ══════════════════════════════════════════════ */
-function setFilter(f, btn) {
-  _filter = f;
+/* ══ PEOPLE ══ */
+function setFilter(f,btn){
+  _filter=f;
   document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
   btn?.classList.add('active');
   renderPeople();
 }
 
-function renderPeople() {
-  const q = (document.getElementById('people-search')?.value||'').toLowerCase().trim();
-  let list = [...DB.people];
-  if (q) list = list.filter(p=>
-    p.name.toLowerCase().includes(q)||
-    (getCompany(p.companyId)?.name||'').toLowerCase().includes(q));
-  if (_filter==='unpaid')  list = list.filter(p=>personUdhari(p.id)>0);
-  if (_filter==='settled') list = list.filter(p=>personUdhari(p.id)===0);
+function renderPeople(){
+  const q=(document.getElementById('people-search')?.value||'').toLowerCase().trim();
+  let list=[...DB.people];
+  if(q) list=list.filter(p=>p.name.toLowerCase().includes(q)||(getCompany(p.companyId)?.name||'').toLowerCase().includes(q));
+  if(_filter==='unpaid')  list=list.filter(p=>personUdhari(p.id)>0);
+  if(_filter==='settled') list=list.filter(p=>personUdhari(p.id)===0);
 
-  const el = document.getElementById('people-list');
-  if (!list.length) {
-    el.innerHTML = `<div class="empty">
-      <div class="empty-icon">👤</div>
-      <div class="empty-title">NO CUSTOMERS</div>
-      <div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register your first customer.':'ऊपर "+ जोड़ो" दबाओ।'}</div>
-    </div>`;
+  const el=document.getElementById('people-list');
+  if(!list.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">👤</div><div class="empty-title">NO CUSTOMERS</div><div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register your first customer.':'ऊपर "+ जोड़ो" दबाओ।'}</div></div>`;
     return;
   }
-  el.innerHTML = list.map(p=>{
-    const udhari  = personUdhari(p.id);
-    const cups    = personTotalCups(p.id);
-    const co      = getCompany(p.companyId);
-    const settled = udhari===0;
-    const history = DB.entries.filter(e=>e.personId===p.id)
-      .sort((a,b)=>b.date.localeCompare(a.date)).slice(0,10);
-    const histHTML = history.length
-      ? history.map(e=>`
-          <div class="hist-row">
+
+  el.innerHTML=list.map(p=>{
+    const udhari=personUdhari(p.id);
+    const cups=personTotalCups(p.id);
+    const co=getCompany(p.companyId);
+    const settled=udhari===0;
+    const history=DB.entries.filter(e=>e.personId===p.id).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,10);
+
+    // Total paid across all entries
+    const totalPaid=DB.entries.filter(e=>e.personId===p.id).reduce((s,e)=>s+(e.paidAmount||0)+(e.paid?e.amount:0),0);
+    const totalAmount=DB.entries.filter(e=>e.personId===p.id).reduce((s,e)=>s+e.amount,0);
+    const paidPct=totalAmount>0?Math.round((totalPaid/totalAmount)*100):0;
+
+    const histHTML=history.length
+      ?history.map(e=>{
+          const rem=e.amount-(e.paidAmount||0);
+          const isPartial=(e.paidAmount||0)>0&&!e.paid;
+          return `<div class="hist-row">
             <div>
               <div style="font-size:14px;font-weight:600;color:var(--black)">${fmtDate(e.date)}</div>
-              <div class="hist-drink">${drinkEmoji(e.drink)} ${e.drink} ×${e.qty}</div>
+              <div class="hist-drink">${drinkEmoji(e.drink)} ${e.drink} ×${e.qty} — ₹${e.amount}${isPartial?` (paid ₹${e.paidAmount||0})`:''}</div>
             </div>
-            <div class="hist-price ${e.paid?'paid':'owed'}">₹${e.amount}</div>
-          </div>`).join('')
-      : `<div style="padding:14px 20px;font-size:13px;color:var(--muted)">${_lang==='en'?'No history.':'कोई इतिहास नहीं।'}</div>`;
+            <div class="hist-price ${e.paid?'paid':isPartial?'partial':'owed'}">${e.paid?'✓ ₹'+e.amount:isPartial?'₹'+rem+' left':'₹'+e.amount}</div>
+          </div>`;
+        }).join('')
+      :`<div style="padding:14px 20px;font-size:13px;color:var(--muted)">${_lang==='en'?'No history.':'कोई इतिहास नहीं।'}</div>`;
 
     return `<div class="person-card">
       <div class="person-card-top">
@@ -967,14 +1019,32 @@ function renderPeople() {
           ${p.phone?`<div class="person-company">📱 ${p.phone}</div>`:''}
         </div>
         <div class="person-due-col">
-          <div class="person-due ${settled?'clear':''}">
+          <div class="person-due ${settled?'clear':udhari<DB.entries.filter(e=>e.personId===p.id&&!e.paid).reduce((s,e)=>s+e.amount,0)?'partial-due':''}">
             ${settled?(_lang==='en'?'✓ CLEAR':'✓ साफ'):'₹'+udhari}
           </div>
           <div class="person-cups">${cups} ${_lang==='en'?'cups due':'कप बाकी'}</div>
         </div>
       </div>
+
+      ${!settled&&totalAmount>0?`
+      <div class="partial-bar-wrap">
+        <div class="partial-bar-labels">
+          <span>${_lang==='en'?'Paid':'चुकाया'} ${paidPct}%</span>
+          <span>${_lang==='en'?'Remaining':'बाकी'} ₹${udhari}</span>
+        </div>
+        <div class="partial-bar-track">
+          <div class="partial-bar-fill" style="width:${paidPct}%"></div>
+        </div>
+      </div>`:''}
+
       <div class="person-card-footer">
-        ${!settled?`<button class="btn btn-success btn-sm" onclick="openSettle('person','${p.id}')">✓ ${_lang==='en'?'SETTLE':'हिसाब'}</button>`:''}
+        ${!settled?`
+          <button class="btn btn-orange btn-sm" onclick="openPartialPayment('${p.id}')">
+            💸 ${_lang==='en'?'PART PAY':'आधा दो'}
+          </button>
+          <button class="btn btn-success btn-sm" onclick="openSettle('person','${p.id}')">
+            ✓ ${_lang==='en'?'FULL':'पूरा'}
+          </button>`:''}
         <button class="btn btn-primary btn-sm" onclick="openAddEntry('${p.id}')">+ ${_lang==='en'?'CHAI':'चाय'}</button>
         <button class="btn btn-ghost btn-sm" onclick="toggleHist('hist-${p.id}')">📋 ${_lang==='en'?'HISTORY':'इतिहास'}</button>
         <button class="btn btn-danger btn-sm" style="margin-left:auto" onclick="openDelete('person','${p.id}','${p.name.replace(/'/g,"\\'")}')">🗑</button>
@@ -984,37 +1054,95 @@ function renderPeople() {
   }).join('');
 }
 
-function toggleHist(id) { document.getElementById(id)?.classList.toggle('open'); }
+function toggleHist(id){document.getElementById(id)?.classList.toggle('open');}
 
-/* ══════════════════════════════════════════════
-   COMPANIES
-   ══════════════════════════════════════════════ */
-function renderCompanies() {
-  const el = document.getElementById('companies-list');
-  if (!DB.companies.length) {
-    el.innerHTML = `<div class="empty">
-      <div class="empty-icon">🏢</div>
-      <div class="empty-title">NO COMPANIES</div>
-      <div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register a company.':'ऊपर "+ जोड़ो" दबाओ।'}</div>
-    </div>`;
+/* ══ PARTIAL PAYMENT ══ */
+function openPartialPayment(personId){
+  _partialTarget=personId;
+  const p=getPerson(personId);
+  const udhari=personUdhari(personId);
+  document.getElementById('pp-name').textContent=p.name;
+  document.getElementById('pp-total').textContent='₹'+udhari;
+  document.getElementById('pp-total-hi').textContent='₹'+udhari;
+  document.getElementById('partial-amount').value='';
+  document.getElementById('pp-remaining').textContent='₹'+udhari;
+  document.getElementById('pp-remaining').className='prv orange';
+  openModal('modal-partial');
+  setTimeout(()=>document.getElementById('partial-amount').focus(),300);
+}
+
+function updatePartialPreview(){
+  const udhari=personUdhari(_partialTarget);
+  const paid=parseInt(document.getElementById('partial-amount').value)||0;
+  const remaining=Math.max(0,udhari-paid);
+  const el=document.getElementById('pp-remaining');
+  el.textContent='₹'+remaining;
+  el.className='prv '+(remaining===0?'green':'orange');
+}
+
+function setPartialPct(pct){
+  const udhari=personUdhari(_partialTarget);
+  const amt=Math.round(udhari*(pct/100));
+  document.getElementById('partial-amount').value=amt;
+  updatePartialPreview();
+}
+
+async function submitPartialPayment(){
+  const paid=parseInt(document.getElementById('partial-amount').value)||0;
+  if(paid<=0){showToast('⚠ ENTER AMOUNT / राशि डालो');return;}
+  const udhari=personUdhari(_partialTarget);
+  if(paid>udhari){showToast('⚠ AMOUNT EXCEEDS UDHARI');return;}
+
+  try{
+    // Get all unpaid entries for this person, oldest first
+    const unpaidEntries=DB.entries
+      .filter(e=>e.personId===_partialTarget&&!e.paid)
+      .sort((a,b)=>a.date.localeCompare(b.date));
+
+    const batch=db.batch();
+    let remaining=paid;
+
+    for(const entry of unpaidEntries){
+      if(remaining<=0) break;
+      const entryOwed=entry.amount-(entry.paidAmount||0);
+      if(remaining>=entryOwed){
+        // Fully pay this entry
+        batch.update(db.collection('entries').doc(entry.id),{
+          paid:true,
+          paidAmount:entry.amount
+        });
+        remaining-=entryOwed;
+      } else {
+        // Partially pay this entry
+        batch.update(db.collection('entries').doc(entry.id),{
+          paidAmount:(entry.paidAmount||0)+remaining
+        });
+        remaining=0;
+      }
+    }
+
+    await batch.commit();
+    closeModal('modal-partial');
+    showToast(`✓ ₹${paid} ${_lang==='en'?'RECORDED':'दर्ज हुआ'}`);
+  } catch(e){showToast('⚠ Error: '+e.message);}
+}
+
+/* ══ COMPANIES ══ */
+function renderCompanies(){
+  const el=document.getElementById('companies-list');
+  if(!DB.companies.length){
+    el.innerHTML=`<div class="empty"><div class="empty-icon">🏢</div><div class="empty-title">NO COMPANIES</div><div class="empty-sub">${_lang==='en'?'Click "+ ADD" to register a company.':'ऊपर "+ जोड़ो" दबाओ।'}</div></div>`;
     return;
   }
-  el.innerHTML = DB.companies.map(co=>{
-    const staff   = DB.people.filter(p=>p.companyId===co.id);
-    const udhari  = companyUdhari(co.id);
-    const allE    = DB.entries.filter(e=>staff.find(p=>p.id===e.personId)||e.companyId===co.id);
-    const dueCups = allE.filter(e=>!e.paid).reduce((s,e)=>s+e.qty,0);
-    const todayC  = allE.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
-    const staffHTML = staff.length
-      ? staff.map(p=>{
-          const u = personUdhari(p.id);
-          return `<div class="staff-row">
-            <span class="staff-name">${p.name}</span>
-            <span class="staff-owe ${u>0?'owed':'clear'}">${u>0?'₹'+u:(_lang==='en'?'CLEAR':'साफ')}</span>
-          </div>`;
-        }).join('')
-      : `<div class="staff-row"><span class="staff-owe clear">${_lang==='en'?'No staff linked':'कोई स्टाफ नहीं'}</span></div>`;
-
+  el.innerHTML=DB.companies.map(co=>{
+    const staff=DB.people.filter(p=>p.companyId===co.id);
+    const udhari=companyUdhari(co.id);
+    const allE=DB.entries.filter(e=>staff.find(p=>p.id===e.personId)||e.companyId===co.id);
+    const dueCups=allE.filter(e=>!e.paid).reduce((s,e)=>s+e.qty,0);
+    const todayC=allE.filter(e=>e.date===today()).reduce((s,e)=>s+e.qty,0);
+    const staffHTML=staff.length
+      ?staff.map(p=>{const u=personUdhari(p.id);return `<div class="staff-row"><span class="staff-name">${p.name}</span><span class="staff-owe ${u>0?'owed':'clear'}">${u>0?'₹'+u:(_lang==='en'?'CLEAR':'साफ')}</span></div>`;}).join('')
+      :`<div class="staff-row"><span class="staff-owe clear">${_lang==='en'?'No staff linked':'कोई स्टाफ नहीं'}</span></div>`;
     return `<div class="company-card" data-initial="${co.name.charAt(0).toUpperCase()}">
       <div class="co-tag">${_lang==='en'?'COMPANY':'कंपनी'}</div>
       <div class="co-name">${co.name}</div>
@@ -1036,18 +1164,16 @@ function renderCompanies() {
   }).join('');
 }
 
-function toggleStaff(id) { document.getElementById(id)?.classList.toggle('open'); }
+function toggleStaff(id){document.getElementById(id)?.classList.toggle('open');}
 
-/* ══════════════════════════════════════════════
-   PRICES
-   ══════════════════════════════════════════════ */
-function renderPrices() {
-  const items = [
-    {key:'chai',   em:'🍵',en:'Chai',        hi:'चाय'},
-    {key:'coffee', em:'☕',en:'Coffee',      hi:'कॉफ़ी'},
+/* ══ PRICES ══ */
+function renderPrices(){
+  const items=[
+    {key:'chai',em:'🍵',en:'Chai',hi:'चाय'},
+    {key:'coffee',em:'☕',en:'Coffee',hi:'कॉफ़ी'},
     {key:'special',em:'✨',en:'Special Chai',hi:'स्पेशल चाय'},
   ];
-  document.getElementById('prices-list').innerHTML = items.map(it=>`
+  document.getElementById('prices-list').innerHTML=items.map(it=>`
     <div class="price-card">
       <div class="pc-head">
         <span class="pc-emoji">${it.em}</span>
@@ -1066,298 +1192,241 @@ function renderPrices() {
     </div>`).join('');
 }
 
-function adjPrice(key, d) {
-  const el = document.getElementById('pc-val-'+key);
-  const v  = parseInt(el.textContent.replace('₹',''))||0;
-  el.textContent = '₹'+Math.max(1,v+d);
+function adjPrice(key,d){
+  const el=document.getElementById('pc-val-'+key);
+  const v=parseInt(el.textContent.replace('₹',''))||0;
+  el.textContent='₹'+Math.max(1,v+d);
 }
 
-async function savePrice(key) {
-  const v = parseInt(document.getElementById('pc-val-'+key).textContent.replace('₹',''))||1;
-  DB.prices[key] = v;
-  try {
-    await db.collection('config').doc('prices').set(DB.prices, {merge:true});
-    document.getElementById('pc-big-'+key).textContent = '₹'+v;
-    const dp = document.getElementById('dp-'+key);
-    if (dp) dp.textContent = '₹'+v;
+async function savePrice(key){
+  const v=parseInt(document.getElementById('pc-val-'+key).textContent.replace('₹',''))||1;
+  DB.prices[key]=v;
+  try{
+    await db.collection('config').doc('prices').set(DB.prices,{merge:true});
+    document.getElementById('pc-big-'+key).textContent='₹'+v;
+    const dp=document.getElementById('dp-'+key);
+    if(dp) dp.textContent='₹'+v;
     showToast(`✓ ${key.toUpperCase()} PRICE SAVED`);
     updateTotal();
-  } catch(e) { showToast('⚠ Error saving price'); }
+  }catch(e){showToast('⚠ Error saving price');}
 }
 
-/* ══════════════════════════════════════════════
-   ENTRY MODAL
-   ══════════════════════════════════════════════ */
-function openAddEntry(prefillPid) {
-  const dl = document.getElementById('plist');
-  dl.innerHTML = DB.people.map(p=>`<option value="${p.name}">`).join('');
-  document.getElementById('e-person').value = '';
-  if (prefillPid) {
-    const p = getPerson(prefillPid);
-    if (p) document.getElementById('e-person').value = p.name;
-  }
-  const cs = document.getElementById('e-company');
-  cs.innerHTML = DB.companies.length
-    ? DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')
-    : `<option value="">— No companies added yet —</option>`;
-  _curDrink = 'chai'; _eQty = 1;
+/* ══ ENTRY MODAL ══ */
+function openAddEntry(prefillPid){
+  const dl=document.getElementById('plist');
+  dl.innerHTML=DB.people.map(p=>`<option value="${p.name}">`).join('');
+  document.getElementById('e-person').value='';
+  if(prefillPid){const p=getPerson(prefillPid);if(p)document.getElementById('e-person').value=p.name;}
+  const cs=document.getElementById('e-company');
+  cs.innerHTML=DB.companies.length
+    ?DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')
+    :`<option value="">— No companies added yet —</option>`;
+  _curDrink='chai';_eQty=1;
   setPayerType('personal');
   document.querySelectorAll('.drink-card').forEach(d=>d.classList.remove('sel'));
   document.querySelector('[data-d="chai"]')?.classList.add('sel');
-  document.getElementById('qty-val').textContent = 1;
+  document.getElementById('qty-val').textContent=1;
   updateTotal();
   openModal('modal-entry');
 }
 
-function setPayerType(t) {
-  _payer = t;
+function setPayerType(t){
+  _payer=t;
   document.getElementById('pt-personal').classList.toggle('sel',t==='personal');
   document.getElementById('pt-company').classList.toggle('sel',t==='company');
-  document.getElementById('fg-person').style.display  = t==='personal'?'':'none';
-  document.getElementById('fg-company').style.display = t==='company'?'':'none';
+  document.getElementById('fg-person').style.display=t==='personal'?'':'none';
+  document.getElementById('fg-company').style.display=t==='company'?'':'none';
 }
 
-function selDrink(d) {
-  _curDrink = d;
+function selDrink(d){
+  _curDrink=d;
   document.querySelectorAll('.drink-card').forEach(c=>c.classList.remove('sel'));
   document.querySelector(`[data-d="${d}"]`)?.classList.add('sel');
   updateTotal();
 }
 
-function changeQty(d) {
-  _eQty = Math.max(1,_eQty+d);
-  document.getElementById('qty-val').textContent = _eQty;
+function changeQty(d){
+  _eQty=Math.max(1,_eQty+d);
+  document.getElementById('qty-val').textContent=_eQty;
   updateTotal();
 }
 
-function updateTotal() {
-  const t = document.getElementById('entry-total');
-  if (t) t.textContent = '₹'+(DB.prices[_curDrink]*_eQty);
+function updateTotal(){
+  const t=document.getElementById('entry-total');
+  if(t) t.textContent='₹'+(DB.prices[_curDrink]*_eQty);
 }
 
-async function submitEntry() {
-  let personId=null, companyId=null;
-
-  if (_payer==='personal') {
-    const nm = document.getElementById('e-person').value.trim();
-    if (!nm) { showToast('⚠ ENTER A NAME'); return; }
-    let p = DB.people.find(x=>x.name.toLowerCase()===nm.toLowerCase());
-    if (!p) {
-      // Auto-create person if not found
-      try {
-        const ref = await db.collection('people').add({
-          name:nm, companyId:null, phone:'',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        personId = ref.id;
-      } catch(e) { showToast('⚠ Error adding person'); return; }
-    } else { personId = p.id; }
-  } else {
-    companyId = document.getElementById('e-company').value;
-    if (!companyId) { showToast('⚠ SELECT A COMPANY'); return; }
-    const co  = getCompany(companyId);
-    let rep = DB.people.find(p=>p.companyId===companyId&&p.name===co.name+' (Office)');
-    if (!rep) {
-      try {
-        const ref = await db.collection('people').add({
-          name:co.name+' (Office)', companyId, phone:'',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        personId = ref.id;
-      } catch(e) { showToast('⚠ Error'); return; }
-    } else { personId = rep.id; }
+async function submitEntry(){
+  let personId=null,companyId=null;
+  if(_payer==='personal'){
+    const nm=document.getElementById('e-person').value.trim();
+    if(!nm){showToast('⚠ ENTER A NAME');return;}
+    let p=DB.people.find(x=>x.name.toLowerCase()===nm.toLowerCase());
+    if(!p){
+      try{
+        const ref=await db.collection('people').add({name:nm,companyId:null,phone:'',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+        personId=ref.id;
+      }catch(e){showToast('⚠ Error adding person');return;}
+    }else{personId=p.id;}
+  }else{
+    companyId=document.getElementById('e-company').value;
+    if(!companyId){showToast('⚠ SELECT A COMPANY');return;}
+    const co=getCompany(companyId);
+    let rep=DB.people.find(p=>p.companyId===companyId&&p.name===co.name+' (Office)');
+    if(!rep){
+      try{
+        const ref=await db.collection('people').add({name:co.name+' (Office)',companyId,phone:'',createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+        personId=ref.id;
+      }catch(e){showToast('⚠ Error');return;}
+    }else{personId=rep.id;}
   }
-
-  const amt = DB.prices[_curDrink]*_eQty;
-  try {
+  const amt=DB.prices[_curDrink]*_eQty;
+  try{
     await db.collection('entries').add({
-      personId, companyId,
-      drink:  _curDrink,
-      qty:    _eQty,
-      amount: amt,
-      date:   today(),
-      paid:   false,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      personId,companyId,drink:_curDrink,qty:_eQty,amount:amt,
+      paidAmount:0,date:today(),paid:false,
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
     closeModal('modal-entry');
     showToast(`✓ ${_eQty}× ${_curDrink.toUpperCase()} — ₹${amt}`);
-  } catch(e) { showToast('⚠ Error saving entry'); }
+  }catch(e){showToast('⚠ Error saving entry');}
 }
 
-/* ══════════════════════════════════════════════
-   PERSON MODAL
-   ══════════════════════════════════════════════ */
-function openAddPerson() {
-  document.getElementById('np-name').value  = '';
-  document.getElementById('np-phone').value = '';
-  const cs = document.getElementById('np-company');
-  cs.innerHTML = `<option value="">— No Company —</option>`+
-    DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+/* ══ PERSON MODAL ══ */
+function openAddPerson(){
+  document.getElementById('np-name').value='';
+  document.getElementById('np-phone').value='';
+  const cs=document.getElementById('np-company');
+  cs.innerHTML=`<option value="">— No Company —</option>`+DB.companies.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
   openModal('modal-person');
 }
 
-async function submitPerson() {
-  const name = document.getElementById('np-name').value.trim();
-  if (!name) { showToast('⚠ ENTER NAME'); return; }
-  if (DB.people.find(p=>p.name.toLowerCase()===name.toLowerCase())) {
-    showToast('⚠ NAME ALREADY EXISTS'); return;
-  }
-  try {
+async function submitPerson(){
+  const name=document.getElementById('np-name').value.trim();
+  if(!name){showToast('⚠ ENTER NAME');return;}
+  if(DB.people.find(p=>p.name.toLowerCase()===name.toLowerCase())){showToast('⚠ NAME ALREADY EXISTS');return;}
+  try{
     await db.collection('people').add({
       name,
-      companyId: document.getElementById('np-company').value||null,
-      phone:     document.getElementById('np-phone').value.trim(),
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      companyId:document.getElementById('np-company').value||null,
+      phone:document.getElementById('np-phone').value.trim(),
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
     closeModal('modal-person');
     showToast(`✓ ${name.toUpperCase()} ADDED`);
-  } catch(e) { showToast('⚠ Error adding customer'); }
+  }catch(e){showToast('⚠ Error adding customer');}
 }
 
-/* ══════════════════════════════════════════════
-   COMPANY MODAL
-   ══════════════════════════════════════════════ */
-function openAddCompany() {
-  document.getElementById('nc-name').value  = '';
-  document.getElementById('nc-floor').value = '';
+/* ══ COMPANY MODAL ══ */
+function openAddCompany(){
+  document.getElementById('nc-name').value='';
+  document.getElementById('nc-floor').value='';
   openModal('modal-company');
 }
 
-async function submitCompany() {
-  const name = document.getElementById('nc-name').value.trim();
-  if (!name) { showToast('⚠ ENTER COMPANY NAME'); return; }
-  try {
+async function submitCompany(){
+  const name=document.getElementById('nc-name').value.trim();
+  if(!name){showToast('⚠ ENTER COMPANY NAME');return;}
+  try{
     await db.collection('companies').add({
-      name,
-      floor: document.getElementById('nc-floor').value.trim(),
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      name,floor:document.getElementById('nc-floor').value.trim(),
+      createdAt:firebase.firestore.FieldValue.serverTimestamp()
     });
     closeModal('modal-company');
     showToast(`✓ ${name.toUpperCase()} ADDED`);
-  } catch(e) { showToast('⚠ Error adding company'); }
+  }catch(e){showToast('⚠ Error adding company');}
 }
 
-/* ══════════════════════════════════════════════
-   SETTLE
-   ══════════════════════════════════════════════ */
-function openSettle(type, id) {
-  _settleTarget = {type,id};
-  if (type==='person') {
-    const p = getPerson(id);
-    const u = personUdhari(id);
-    document.getElementById('settle-msg').textContent = 'SETTLE: '+p.name.toUpperCase();
-    document.getElementById('settle-amt').textContent = '₹'+u;
-    document.getElementById('settle-sub').textContent =
-      _lang==='en'?'All unpaid entries will be marked paid.':'सभी बकाया एंट्री भुगतान हो जाएगी।';
-  } else {
-    const co = getCompany(id);
-    const u  = companyUdhari(id);
-    document.getElementById('settle-msg').textContent = 'SETTLE: '+co.name.toUpperCase();
-    document.getElementById('settle-amt').textContent = '₹'+u;
-    document.getElementById('settle-sub').textContent =
-      _lang==='en'?'All staff entries marked paid.':'सब स्टाफ की एंट्री भुगतान हो जाएगी।';
+/* ══ FULL SETTLE ══ */
+function openSettle(type,id){
+  _settleTarget={type,id};
+  if(type==='person'){
+    const p=getPerson(id);const u=personUdhari(id);
+    document.getElementById('settle-msg').textContent='SETTLE: '+p.name.toUpperCase();
+    document.getElementById('settle-amt').textContent='₹'+u;
+    document.getElementById('settle-sub').textContent=_lang==='en'?'All unpaid entries marked as fully paid.':'सभी बकाया एंट्री पूरी भुगतान हो जाएगी।';
+  }else{
+    const co=getCompany(id);const u=companyUdhari(id);
+    document.getElementById('settle-msg').textContent='SETTLE: '+co.name.toUpperCase();
+    document.getElementById('settle-amt').textContent='₹'+u;
+    document.getElementById('settle-sub').textContent=_lang==='en'?'All staff entries marked paid.':'सब स्टाफ की एंट्री भुगतान हो जाएगी।';
   }
   openModal('modal-settle');
 }
 
-async function confirmSettle() {
-  if (!_settleTarget) return;
-  const {type,id} = _settleTarget;
-  try {
-    const batch = db.batch();
-    if (type==='person') {
-      const snap = await db.collection('entries')
-        .where('personId','==',id).where('paid','==',false).get();
-      snap.docs.forEach(d=>batch.update(d.ref,{paid:true}));
-    } else {
-      const pids = DB.people.filter(p=>p.companyId===id).map(p=>p.id);
-      const snap = await db.collection('entries').where('paid','==',false).get();
+async function confirmSettle(){
+  if(!_settleTarget) return;
+  const{type,id}=_settleTarget;
+  try{
+    const batch=db.batch();
+    if(type==='person'){
+      const snap=await db.collection('entries').where('personId','==',id).where('paid','==',false).get();
+      snap.docs.forEach(d=>batch.update(d.ref,{paid:true,paidAmount:d.data().amount}));
+    }else{
+      const pids=DB.people.filter(p=>p.companyId===id).map(p=>p.id);
+      const snap=await db.collection('entries').where('paid','==',false).get();
       snap.docs.forEach(d=>{
-        const e = d.data();
-        if (pids.includes(e.personId)||e.companyId===id) batch.update(d.ref,{paid:true});
+        const e=d.data();
+        if(pids.includes(e.personId)||e.companyId===id) batch.update(d.ref,{paid:true,paidAmount:e.amount});
       });
     }
     await batch.commit();
     closeModal('modal-settle');
     showToast('✓ ACCOUNT SETTLED');
-  } catch(e) { showToast('⚠ Error settling account'); }
+  }catch(e){showToast('⚠ Error settling account');}
 }
 
-/* ══════════════════════════════════════════════
-   DELETE
-   ══════════════════════════════════════════════ */
-function openDelete(type, id, name) {
-  _deleteTarget = {type,id};
-  document.getElementById('delete-msg').textContent = 'DELETE '+name.toUpperCase()+'?';
-  let sub;
-  if (type==='person') {
-    const c = DB.entries.filter(e=>e.personId===id).length;
-    sub = _lang==='en'
-      ? `Customer + ${c} entry/entries will be permanently deleted.`
-      : `ग्राहक और उनकी ${c} एंट्री पक्के हट जाएगी।`;
-  } else {
-    const sc = DB.people.filter(p=>p.companyId===id).length;
-    sub = _lang==='en'
-      ? `Company deleted. ${sc} staff become unlinked (not deleted).`
-      : `कंपनी हटेगी। ${sc} स्टाफ का लिंक हटेगा, वो नहीं हटेंगे।`;
-  }
-  document.getElementById('delete-sub').textContent = sub;
+/* ══ DELETE ══ */
+function openDelete(type,id,name){
+  _deleteTarget={type,id};
+  document.getElementById('delete-msg').textContent='DELETE '+name.toUpperCase()+'?';
+  const sub=type==='person'
+    ?(_lang==='en'?`Customer + ${DB.entries.filter(e=>e.personId===id).length} entries permanently deleted.`:`ग्राहक और उनकी एंट्री पक्के हट जाएगी।`)
+    :(_lang==='en'?`Company deleted. ${DB.people.filter(p=>p.companyId===id).length} staff unlinked.`:`कंपनी हटेगी। स्टाफ का लिंक हटेगा।`);
+  document.getElementById('delete-sub').textContent=sub;
   openModal('modal-delete');
 }
 
-async function confirmDelete() {
-  if (!_deleteTarget) return;
-  const {type,id} = _deleteTarget;
-  try {
-    const batch = db.batch();
-    if (type==='person') {
-      // Delete person
+async function confirmDelete(){
+  if(!_deleteTarget) return;
+  const{type,id}=_deleteTarget;
+  try{
+    const batch=db.batch();
+    if(type==='person'){
       batch.delete(db.collection('people').doc(id));
-      // Delete all their entries
-      const snap = await db.collection('entries').where('personId','==',id).get();
+      const snap=await db.collection('entries').where('personId','==',id).get();
       snap.docs.forEach(d=>batch.delete(d.ref));
       await batch.commit();
       showToast('🗑 CUSTOMER DELETED');
-    } else {
-      // Delete company
+    }else{
       batch.delete(db.collection('companies').doc(id));
-      // Unlink staff (don't delete them)
-      const pSnap = await db.collection('people').where('companyId','==',id).get();
+      const pSnap=await db.collection('people').where('companyId','==',id).get();
       pSnap.docs.forEach(d=>batch.update(d.ref,{companyId:null}));
       await batch.commit();
       showToast('🗑 COMPANY DELETED');
     }
     closeModal('modal-delete');
-  } catch(e) { showToast('⚠ Error deleting'); }
+  }catch(e){showToast('⚠ Error deleting');}
 }
 
-/* ══════════════════════════════════════════════
-   MODAL HELPERS
-   ══════════════════════════════════════════════ */
-function openModal(id)  { document.getElementById(id)?.classList.add('open'); }
-function closeModal(id) { document.getElementById(id)?.classList.remove('open'); }
-
+/* ══ MODAL HELPERS ══ */
+function openModal(id){document.getElementById(id)?.classList.add('open');}
+function closeModal(id){document.getElementById(id)?.classList.remove('open');}
 document.querySelectorAll('.modal-bg').forEach(bg=>{
-  bg.addEventListener('click',e=>{ if(e.target===bg) bg.classList.remove('open'); });
+  bg.addEventListener('click',e=>{if(e.target===bg)bg.classList.remove('open');});
 });
 
-/* ══════════════════════════════════════════════
-   TOAST
-   ══════════════════════════════════════════════ */
+/* ══ TOAST ══ */
 let _tt;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(_tt);
-  _tt = setTimeout(()=>t.classList.remove('show'),2800);
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('show'),2800);
 }
 
-/* ══════════════════════════════════════════════
-   INIT
-   ══════════════════════════════════════════════ */
-window.addEventListener('load', ()=>{
-  document.getElementById('sidebar-date').textContent =
+/* ══ INIT ══ */
+window.addEventListener('load',()=>{
+  document.getElementById('sidebar-date').textContent=
     new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).toUpperCase();
   initFirebase();
 });
